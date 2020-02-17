@@ -12,8 +12,44 @@
 
 	//Kill connection in case of error and print error message
 	if($conn->connect_error){
-		die("Connenction failed. Error: ".$conn->connect_error);
+		die("Connenction to database failed. Error: ".$conn->connect_error);
 	}
+	
+	
+	
+	
+	//5469
+	
+	function getUserEvents($userId){
+		global $conn;
+		$sql = "SELECT s_subtype, s_type FROM ucon_order WHERE id_member = ".$userId;
+		
+		$result = mysqli_query($conn, $sql);
+		
+		$events;
+		if (mysqli_num_rows($result) > 0) {
+			// output data of each row
+			$i = 0;
+			while($row = mysqli_fetch_assoc($result)) {
+				$events[$i] = $row[""];
+			}
+		} else {
+			echo "0 results";
+			}
+			
+			
+			
+		//Print array of ids
+		for($k = 0; $k < count($events); $k++){
+			echo $events[$k];
+		}
+		
+		
+	}
+	
+	
+	
+	
 
 	//Return event information given the event id
 	function getEventInfo($eventId){
