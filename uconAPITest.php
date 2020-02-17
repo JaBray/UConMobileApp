@@ -36,14 +36,16 @@
 		
 	}
 
-
-getEventInfo(6137);
 ?>
 
 </head>
 
 
 <body>
+<?php
+	getEventInfo(6137);
+?>
+
 
 </body>
 
