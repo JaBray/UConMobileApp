@@ -22,30 +22,34 @@
 	
 	function getUserEvents($userId){
 		global $conn;
-		$sql = "SELECT s_subtype, s_type FROM ucon_order WHERE id_member = ".$userId;
+		$sql = "SELECT s_type FROM ucon_order WHERE id_member = ".$userId;
+		$type = mysqli_query($conn, $sql);
+		$sql = "SELECT s_subtype FROM ucon_order WHERE id_member = ".$userId;
+		$subtype = mysqli_query($conn, $sql);	
+			
+			
 		
-		$result = mysqli_query($conn, $sql);
-		
-		$events;
-		if (mysqli_num_rows($result) > 0) {
+		if (mysqli_num_rows($type) > 0) {
 			// output data of each row
-			$i = 0;
-			while($row = mysqli_fetch_assoc($result)) {
-				$events[$i] = $row[""];
+			while($row = mysqli_fetch_assoc($type)) {
+				echo "Item Type: " . $row["s_type"]. " <br>" ;
 			}
-		} else {
-			echo "0 results";
-			}
-			
-			
-			
-		//Print array of ids
-		for($k = 0; $k < count($events); $k++){
-			echo $events[$k];
-		}
 		
 		
-	}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	}}
+	
+	
 	
 	
 	
@@ -79,7 +83,8 @@
 
 <body>
 <?php
-	getEventInfo(6137);
+	//getEventInfo(6137);
+	getUserEvents(5469);
 ?>
 
 
