@@ -1,6 +1,6 @@
 # U-Con Mobile
 
-## Android Environment
+### Android Environment
 This assumes you have the dependencies referenced in the [React Native CLI Quickstart](https://facebook.github.io/react-native/docs/getting-started). 
 My environment includes the following versions:
 * *node v10.18.1*
@@ -8,8 +8,19 @@ My environment includes the following versions:
 * *javac 1.8.0_231*
 * *python 2.7.17*
 
-## Recreate Steps
-You shouldn't need to recreate the application from scratch. But just to record how it was created I wanted to list the steps here.
+### Starting the Project on Windows
+The following commands should start the project Windows using Android Studio:
+
+1. git clone https://github.com/JaBray/UConMobileApp.git
+1. cd UConMobileApp/ReactNative
+1. npm install
+1. launch android studio and start a device emulator
+1. npx react-native run-android
+
+*Ebrahim*, you can try this with **npx react-native run-ios** but I don't guarantee it will work. If you get it to work, let us know.
+
+### Recreate Steps
+You shouldn't need to recreate the application from scratch but, just to record how it was created, I wanted to list the steps here.
 1. npx react-native init UConMobile
 1. cd UConMobile
 1. npm install eslint@^5.0.0
@@ -23,7 +34,7 @@ You shouldn't need to recreate the application from scratch. But just to record 
 
 After that you can start the android emulator and run **npx react-native run-android**. Ebrahim, you might be able to run **npx react-native run-ios** but I'm not positive it will work.
 
-## Dependencies
+### Dependencies
 I installed *eslint* and *typescript* simply to remove warnings about missing dependencies. We could probably remove them an any packages that depend on them, but for now this was easier.
 
 #### AsyncStorage
