@@ -9,7 +9,8 @@ export class MyTextBox extends Component {
           style={styles.textInput}
           placeholder={this.props.placeholder}
           onChangeText={(text) => this._update(text)}
-          value = {this.props.plaintext}
+          value = {this.props.text}
+          secureTextEntry = {this.props.secure}
         />
     </View>
   )};
