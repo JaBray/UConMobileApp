@@ -1,0 +1,27 @@
+{
+    "error": false,
+    "message": "You are now logged in.",
+    "hash": "xxx",
+    "expire": 0123456789,
+    "cookie_name": "phpauth_session_cookie",
+    "members": [
+        "2": {
+            "id_member": "2",
+            "s_lname": "John",
+            "s_fname": "Doe",
+            "s_email": "john@example.com"
+        },
+        "151": {
+            "id_member": "151",
+            "s_lname": "Jane",
+            "s_fname": "Doe",
+            "s_email": "jane@example.com"
+        },
+        "7030": {
+            "id_member": "7030",
+            "s_lname": "Bob",
+            "s_fname": "Doe",
+            "s_email": "bob@example.com"
+        }
+    ]
+}

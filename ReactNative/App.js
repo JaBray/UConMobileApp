@@ -15,8 +15,12 @@ export default class App extends Component {
     return (
       <NavigationContainer>
         <Stack.Navigator initialRouteName="Login">
-          <Stack.Screen name="Login" component={Login} />
-          <Stack.Screen name="Schedule" component={Schedule} />
+          <Stack.Screen
+            name="Login"
+            component={Login} />
+          <Stack.Screen
+            name="Schedule" 
+            component={Schedule} />
         </Stack.Navigator>
       </NavigationContainer>
     );

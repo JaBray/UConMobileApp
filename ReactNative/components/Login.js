@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, ActivityIndicator, Text, StyleSheet } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import { RSA } from 'react-native-rsa-native';
 
@@ -12,7 +12,7 @@ export class Login extends Component {
     super(props);
     this._storeKeys();
 
-    this.state = { username: '', password: '', encrypted: ''};
+    this.state = { username: '', password: '', encrypted: '', auth_response: '', authenticating: false};
     this._setUsername.bind(this);
     this._setPassword.bind(this);
   }
@@ -23,7 +23,9 @@ export class Login extends Component {
         <Header />
         <MyTextBox placeholder='Username' secure={false} text={this.state.username} onchange={this._setUsername} />
         <MyTextBox placeholder='Password' secure={true} text={this.state.password} onchange={this._setPassword} />
-        <MyLargeButton title="Login" press={this._authenticate}/>
+        <MyLargeButton title="Login" press={this._sendCredentials} disabled={this.state.authenticating}/>
+        <ActivityIndicator size="large" color="#0000ff" animating={this.state.authenticating} />
+        <Text style={styles.authnResponse}>{this.state.auth_response}</Text>
       </View>
     );
   }
@@ -36,54 +38,97 @@ export class Login extends Component {
     this.setState({password: inputText});
   }
 
-  _authenticate = () => {
-    this._storeEncryptedCredentials();
-    this._sendCredentials()
-      .then(response => {
-        if (response) {
-          this.props.navigation.navigate('Schedule');
-        } else {
-          alert('Authentication error.');
-        }
-      });
-  }
-
-  _storeEncryptedCredentials = async () => {
-      const publicKey = await AsyncStorage.getItem('public');
-      const username = await RSA.encrypt(this.state.username, publicKey);
-      const password = await RSA.encrypt(this.state.password, publicKey);
-      await AsyncStorage.setItem('username', this.state.encrypted);
-      await AsyncStorage.setItem('password', this.state.encrypted);
-  }
-
-  _sendCredentials = () => {
-    if (this.state.username.length < 4 || this.state.password.length < 4) {
-      return new Promise((resolve, reject) => {
-        resolve(false);
-      });
+  _sendCredentials = async () => {
+    // DON'T SEND CREDENTIALS IF IN THE MIDDLE OF SENDING
+    if (this.state.authenticating) {
+      return;
     }
-
+    // TURN ON SPINNER, RESET AUTHN RESPONSE TEXT
+    this.setState({authenticating: true, auth_response: ''});
+    // REMOVE ANY STORED CREDENTIALS AS WE'LL REPLACE WITH NEW CREDENTIALS IF VALID.
+    const keys = ['username', 'password', 'token'];
+    await AsyncStorage.multiRemove(keys)
+    // JUST FOR TESTING INVALID CREDENTIALS. CAN BE REMOVED IN PRODUCTION
+    if (this.state.username.length < 4 || this.state.password.length < 4) {
+      this.setState({authenticating: false, auth_response: 'The username and password must be longer than' +
+      ' four characters.'});
+      return;
+    }
+    // FETCH PARAMETERS
     const url = 'https://jsonplaceholder.typicode.com/posts';
     const body = {
-      username: this.state.username,
-      password: this.state.password
+      user: this.state.username,
+      pass: this.state.password
     };
 
-    return fetch(url, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json'},
-      body: JSON.stringify(body)
+    // WRAP FETCH IN A TIMEOUT (5 SECONDS)
+    let didTimeOut = false;
+    new Promise(function(resolve, reject) {
+      const timeout = setTimeout(function() {
+          didTimeOut = true;
+          reject(new Error('Request timed out'));
+        }, 10000);
+
+      // FETCH CALL
+      fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json'},
+        body: JSON.stringify(body)
+      })
+      .then(response => {
+        clearTimeout(timeout);
+        resolve(response);
+      })
+      .catch(error => {
+        reject(error);
+      });
     })
-    .then(response => response.text())
-    .then(text => {
-      return true;
+    .then(response => {
+      if (response.ok) {
+        this._AuthResponseValid(response.text());
+      } else if (response.status === 401) {
+        this._AuthResponseInvalid();
+      } else {
+        // COULD BE A 404 OR 500 OR OTHER
+        this._AuthResponseError(response.status);
+      }
     })
     .catch(error => {
-      alert(error);
-      return false;
+      this._AuthResponseCouldNotReach();
     });
   }
 
+  // IF VALID CREDENTIALS, STORE CREDENTIALS, TOKEN AND REDIRECT TO SCHEDULE PAGE.
+  _AuthResponseValid = async (text) => {
+    try {
+      this.setState({authenticating: false, auth_response: '', username: '', password: ''});
+      //response = JSON.parse(text);
+      const hash = text._40;
+      const publicKey = await AsyncStorage.getItem('public');
+      const username = await RSA.encrypt(this.state.username, publicKey);
+      const password = await RSA.encrypt(this.state.password, publicKey);
+      await AsyncStorage.setItem('username', username.toString());
+      await AsyncStorage.setItem('password', password.toString());
+      await AsyncStorage.setItem('token', hash.toString());
+      this.props.navigation.navigate('Schedule');
+    } catch (error) {
+      this.setState({auth_response: `The authentication server's response was not understood. Please try again or contact the administrator. ${error}`});
+    }
+  }
+
+  _AuthResponseInvalid = () => {
+    this.setState({authenticating: false, auth_response: 'Your credentials were not recognized.'});
+  }
+
+  _AuthResponseError = (errorCode) => {
+    this.setState({authenticating: false, auth_response: `An error occurred while trying to log you in. Please try again or contact the administrator (error code: ${errorCode}).`});
+  }
+
+  _AuthResponseCouldNotReach = () => {
+    this.setState({authenticating: false, auth_response: `The authentication server could not be reached. Please try again or contact the administrator.`});
+  }
+
+  // ENCRYPTION KEYS
   _storeKeys = () => {
     AsyncStorage.setItem('public', `-----BEGIN PUBLIC KEY-----
       MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA1w8wVi2CKFeloC1yZrJo
@@ -130,5 +175,9 @@ const styles = StyleSheet.create({
    flexDirection: 'column',
    justifyContent: 'flex-start',
    backgroundColor: 'white'
+ },
+ authnResponse: {
+   margin: 15,
+   fontSize: 16
  }
 });
