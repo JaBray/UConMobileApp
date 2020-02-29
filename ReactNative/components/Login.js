@@ -12,7 +12,7 @@ export class Login extends Component {
     super(props);
     this._storeKeys();
 
-    this.state = { username: '', password: '', encrypted: '', auth_response: '', authenticating: false};
+    this.state = { username: '', password: '', auth_response: '', authenticating: false};
     this._setUsername.bind(this);
     this._setPassword.bind(this);
   }
@@ -55,10 +55,12 @@ export class Login extends Component {
       return;
     }
     // FETCH PARAMETERS
-    const url = 'https://jsonplaceholder.typicode.com/posts';
+    const url = 'https://myfakeapi.com/api/login';
     const body = {
-      user: this.state.username,
-      pass: this.state.password
+      userName: this.state.username,
+      password: this.state.password,
+      verified: true,
+      blocked: false
     };
 
     // WRAP FETCH IN A TIMEOUT (5 SECONDS)
@@ -83,9 +85,10 @@ export class Login extends Component {
         reject(error);
       });
     })
-    .then(response => {
+    .then(async response => {
       if (response.ok) {
-        this._AuthResponseValid(response.text());
+        const responseText = await response.text();
+        this._AuthResponseValid(responseText);
       } else if (response.status === 401) {
         this._AuthResponseInvalid();
       } else {
@@ -102,15 +105,15 @@ export class Login extends Component {
   _AuthResponseValid = async (text) => {
     try {
       this.setState({authenticating: false, auth_response: '', username: '', password: ''});
-      //response = JSON.parse(text);
-      const hash = text._40;
+      const response = JSON.parse(text);
+      const hash = response.session;
       const publicKey = await AsyncStorage.getItem('public');
       const username = await RSA.encrypt(this.state.username, publicKey);
       const password = await RSA.encrypt(this.state.password, publicKey);
       await AsyncStorage.setItem('username', username.toString());
       await AsyncStorage.setItem('password', password.toString());
       await AsyncStorage.setItem('token', hash.toString());
-      this.props.navigation.navigate('Schedule');
+      this.props.onLogin();
     } catch (error) {
       this.setState({auth_response: `The authentication server's response was not understood. Please try again or contact the administrator. ${error}`});
     }
