@@ -5,9 +5,9 @@ export class Event extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.text}>{this.props.title}</Text>
-        <Text style={styles.text}>Day: {this.props.day}</Text>
-        <Text style={styles.text}>Time: {this.props.time}</Text>
+        <Text style={styles.text}>Make: {this.props.title}</Text>
+        <Text style={styles.text}>Model: {this.props.day}</Text>
+        <Text style={styles.text}>Color: {this.props.time}</Text>
       </View>
     );
   }
