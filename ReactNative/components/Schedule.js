@@ -28,9 +28,7 @@ export class Schedule extends Component {
 
   componentDidMount() {
     this._isMounted = true;
-    if (this._isMounted) {
-      this._getSchedule();
-    }
+    this._getSchedule();
   }
 
   componentWillUnmount() {
@@ -124,7 +122,10 @@ export class Schedule extends Component {
         color: car.car_color
       }
     });
-    this.setState({events: eventsObject});
+
+    if (this._isMounted) {
+      this.setState({events: eventsObject});
+    }
   }
 
   _processUnauthorized = () => {
