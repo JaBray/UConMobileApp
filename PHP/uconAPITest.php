@@ -62,7 +62,15 @@
 		if (mysqli_num_rows($result) > 0) {
 			
 			while($row = mysqli_fetch_assoc($result)) {
-				echo "Game: " . $row["s_title"]. "<br>Day: ".$row["e_day"]. " <br> Time: " . $row["i_time"]. "<br> Room " . $row["id_room"]. "<br>Table ". $row["s_table"] . "<br><br>";
+				$eventObj->title = $row["s_title"];
+				$eventObj->day = $row["e_day"];
+				$eventObj->time = $row["i_time"];
+				$eventObj->room = $row["id_room"];
+				$eventObj->table = $row["s_table"];
+				
+				//echo "Game: " . $row["s_title"]. "<br>Day: ".$row["e_day"]. " <br> Time: " . $row["i_time"]. "<br> Room " . $row["id_room"]. "<br>Table ". $row["s_table"] . "<br><br>";
+				$eventJSON = json_encode($eventObj);
+				echo $eventJSON;
 			}
 		} else {
 			echo "0 results";
