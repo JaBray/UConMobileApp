@@ -58,7 +58,7 @@
 		$sql = "SELECT s_title, i_time, e_day, id_room, s_table FROM ucon_event WHERE id_event = ".$eventId;
 		// I added a day to be displayed for the event.
 		$result = mysqli_query($conn, $sql);
-		
+		$eventObj = new stdClass();
 		if (mysqli_num_rows($result) > 0) {
 			
 			while($row = mysqli_fetch_assoc($result)) {
@@ -70,7 +70,7 @@
 				
 				//echo "Game: " . $row["s_title"]. "<br>Day: ".$row["e_day"]. " <br> Time: " . $row["i_time"]. "<br> Room " . $row["id_room"]. "<br>Table ". $row["s_table"] . "<br><br>";
 				$eventJSON = json_encode($eventObj);
-				echo $eventJSON;
+				echo $eventJSON."<br>";
 			}
 		} else {
 			echo "0 results";
