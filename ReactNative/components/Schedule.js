@@ -107,7 +107,7 @@ export class Schedule extends Component {
     });
   } // END _getSchedule
 
-  _parseSchedule = (text) => {
+  _parseSchedule = async (text) => {
     let response;
     try {
       response = JSON.parse(text);
@@ -123,8 +123,19 @@ export class Schedule extends Component {
       }
     });
 
+    for (const car of eventsObject) {
+      let car_string = JSON.stringify(car);
+      await AsyncStorage.setItem(car.make, car_string);
+    }
+
+    let a_car = JSON.parse(await AsyncStorage.getItem('Mitsubishi'));
+    let car_array = [];
+
+    car_array.push(a_car);
+
+    console.log(car_array);
     if (this._isMounted) {
-      this.setState({events: eventsObject});
+      this.setState({events: car_array});
     }
   }
 

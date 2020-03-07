@@ -55,12 +55,10 @@ export class Login extends Component {
       return;
     }
     // FETCH PARAMETERS
-    const url = 'https://myfakeapi.com/api/login';
+    const url = 'https://ucon-gaming.org/reg/api/services.php?action=login';
     const body = {
-      userName: this.state.username,
-      password: this.state.password,
-      verified: true,
-      blocked: false
+      user: this.state.username,
+      pass: this.state.password
     };
 
     // WRAP FETCH IN A TIMEOUT (5 SECONDS)
@@ -106,7 +104,7 @@ export class Login extends Component {
     try {
       this.setState({authenticating: false, auth_response: '', username: '', password: ''});
       const response = JSON.parse(text);
-      const hash = response.session;
+      const hash = response.hash;
       const publicKey = await AsyncStorage.getItem('public');
       const username = await RSA.encrypt(this.state.username, publicKey);
       const password = await RSA.encrypt(this.state.password, publicKey);
