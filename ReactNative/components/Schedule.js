@@ -4,7 +4,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { Header } from './Header';
 import { Event } from './Event';
 import { MyLargeButton } from './MyLargeButton';
-
+import { MySmallButton } from './MySmallButton';
 
 // <ScrollView style={styles.container}>
 //   <Event title='Event 1' day='Friday, Nov 1' time='7pm'/>
@@ -40,6 +40,12 @@ export class Schedule extends Component {
       <View style={styles.container}>
         <SafeAreaView style={styles.container}>
           <Header />
+          <View style={styles.navigation}>
+            <MySmallButton title="Mitsubishi" press={this._updateSchedule.bind(this, 'Mitsubishi')}/>
+            <MySmallButton title="VW" press={this._updateSchedule.bind(this, 'Volkswagen')}/>
+            <MySmallButton title="Jeep" press={this._updateSchedule.bind(this, 'Jeep')}/>
+            <MySmallButton title="Dodge" press={this._updateSchedule.bind(this, 'Dodge')}/>
+          </View>
           <FlatList
             data={this.state.events}
             renderItem={({item}) => <Event title={item.make} day={item.model} time={item.color} />}
@@ -55,6 +61,16 @@ export class Schedule extends Component {
     const keys = ['username', 'password', 'token'];
     await AsyncStorage.multiRemove(keys)
     this.props.onLogout();
+  }
+
+  _updateSchedule = async (make) => {
+    console.log('make', make);
+    let a_car = JSON.parse(await AsyncStorage.getItem(make));
+    let car_array = [];
+    car_array.push(a_car);
+    if (this._isMounted) {
+      this.setState({events: car_array});
+    }
   }
 
   _getSchedule = async () => {
@@ -115,6 +131,7 @@ export class Schedule extends Component {
       // DISPLAY ERROR
     }
     const events = response.cars.slice(0, 10);
+
     const eventsObject = events.map((car) => {
       return {
         make: car.car,
@@ -125,6 +142,7 @@ export class Schedule extends Component {
 
     for (const car of eventsObject) {
       let car_string = JSON.stringify(car);
+      console.log('car', car);
       await AsyncStorage.setItem(car.make, car_string);
     }
 
@@ -133,7 +151,6 @@ export class Schedule extends Component {
 
     car_array.push(a_car);
 
-    console.log(car_array);
     if (this._isMounted) {
       this.setState({events: car_array});
     }
@@ -154,5 +171,9 @@ export class Schedule extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1
+  },
+  navigation: {
+    flexDirection: 'row',
+    justifyContent: 'space-around'
   }
 });
