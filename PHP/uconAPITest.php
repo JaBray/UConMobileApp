@@ -7,13 +7,28 @@
 	$password = "password";
 	$dbname = "ucon";
 
-	//Create connection to database using provided inputs
+//Create connection to database using provided inputs
 	$conn = new mysqli($servername, $username,$password,$dbname);
 
 	//Kill connection in case of error and print error message
 	if($conn->connect_error){
 		die("Connenction to database failed. Error: ".$conn->connect_error);
 	}
+	
+	
+	
+	
+	if($_SERVER["REQUEST_METHOD"] == "POST"){
+			
+			getUserEvents($_POST['userID'], 2019);
+		
+	}
+
+
+
+
+
+	
 	
 	
 	
@@ -99,12 +114,7 @@
 
 
 <body>
-<?php
-
-	getUserEvents(5469, 2019);
-?>
-
-
+	<button onclick="goBack()">Go Back</button>
 </body>
 
 
