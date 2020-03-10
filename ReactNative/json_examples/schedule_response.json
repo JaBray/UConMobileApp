@@ -1,0 +1,35 @@
+{
+  "players": [
+    {
+      "id_member": "2",
+      "events": [
+        {
+          "title": "game1",
+          "name": "game1",
+          "room": "room1",
+          "day": "Friday",
+          "time": "5:00"
+        },
+        {
+          "title": "game1",
+          "name": "game1",
+          "room": "room1",
+          "day": "Friday",
+          "time": "5:00"
+        }
+      ]
+    },
+    {
+      "id_member": "151",
+      "events": [
+        {
+          "title": "game1",
+          "name": "game1",
+          "room": "room1",
+          "day": "Friday",
+          "time": "5:00"
+        }
+      ]
+    }
+  ]
+}
