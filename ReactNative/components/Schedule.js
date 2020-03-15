@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { ScrollView, FlatList,SafeAreaView, View, StyleSheet } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
-import { Header } from './Header';
-import { Event } from './Event';
-import { MyLargeButton } from './MyLargeButton';
-import { MySmallButton } from './MySmallButton';
+import Header from './Header';
+import Event from './Event';
+import MyLargeButton from './MyLargeButton';
+import MySmallButton from './MySmallButton';
 
 // <ScrollView style={styles.container}>
 //   <Event title='Event 1' day='Friday, Nov 1' time='7pm'/>
@@ -19,7 +19,7 @@ import { MySmallButton } from './MySmallButton';
 //   <Event title={event.car} day={event.car_model} time={event.price}/>
 // ))}
 
-export class Schedule extends Component {
+export default class Schedule extends Component {
   constructor(props) {
     super(props);
     this._logout.bind(this);

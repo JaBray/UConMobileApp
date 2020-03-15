@@ -4,7 +4,7 @@ import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 
 {/* EACH COMPONENT SHOULD INCLUDE EVERYTHING IT NEEDS TO FUNCTION
   ANY FUNCTIONS, STYLES, ETC... */}
-export class MySmallButton extends Component {
+export default class MySmallButton extends Component {
   render() {
     return (
       <View style={styles.buttonContainer}>

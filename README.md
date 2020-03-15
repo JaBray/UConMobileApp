@@ -34,6 +34,7 @@ You shouldn't need to recreate the application from scratch but, just to record 
 1. npm install react-native-rsa-native --save
 1. npm install @react-navigation/native
 1. npm install react-native-reanimated react-native-gesture-handler react-native-screens react-native-safe-area-context @react-native-community/masked-view
+1. npm install --save-dev jest-fetch-mock
 1. Edit the /android/app/build.gradle file by:
    * Add *multiDexEnabled true* to the *android/defaultConfig* section.
    * Add the following two lines to the *dependencies* section:
@@ -55,3 +56,6 @@ I installed *eslint* and *typescript* simply to remove warnings about missing de
 
 #### RSA Encryption
 react-native-rsa-native v1.1.4 is a library for encrypting strings using a public/private key. At the moment, the public/private key is in our code, but I'm hoping to find a way to move it out, perhaps using a TLS certificate. We may be able to store the public key on the device and send credentials encrypted, then decrypt on the backend. This would require finding out how to decrypt in PHP. More information about this library is here **https://github.com/amitaymolko/react-native-rsa-native**
+
+### Testing
+Jest is the recommended testing solution for React Native and Jest modules are included by default when you start a React Native app. In order to mock the fetch API calls I did have to install [jest-fetch-mock](https://www.npmjs.com/package/jest-fetch-mock). Doing so introduced a number of vulnerabilities, but this package is installed as a development dependency is not used in the production application.

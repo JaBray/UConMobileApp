@@ -4,8 +4,8 @@ import {NavigationContainer} from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import AsyncStorage from '@react-native-community/async-storage';
 
-import { Login } from './components/Login';
-import { Schedule } from './components/Schedule';
+import Login from './components/Login';
+import Schedule from './components/Schedule';
 
 const Drawer = createDrawerNavigator();
 

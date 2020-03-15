@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Image, StyleSheet } from 'react-native';
 
-export class Header extends Component {
+export default class Header extends Component {
   render() {
     return (
       <View style={styles.container}>

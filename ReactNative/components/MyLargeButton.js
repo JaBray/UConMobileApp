@@ -4,7 +4,7 @@ import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 
 {/* EACH COMPONENT SHOULD INCLUDE EVERYTHING IT NEEDS TO FUNCTION
   ANY FUNCTIONS, STYLES, ETC... */}
-export class MyLargeButton extends Component {
+export default class MyLargeButton extends Component {
   render() {
     return (
       <View style={styles.buttonContainer}>

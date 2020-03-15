@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-export class Event extends Component {
+export default class Event extends Component {
   render() {
     return (
       <View style={styles.container}>

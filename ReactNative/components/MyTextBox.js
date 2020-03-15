@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, TextInput, StyleSheet } from 'react-native';
 
-export class MyTextBox extends Component {
+export default class MyTextBox extends Component {
   render() {
     return (
       <View style={styles.container}>

@@ -3,11 +3,11 @@ import { View, ActivityIndicator, Text, StyleSheet } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import { RSA } from 'react-native-rsa-native';
 
-import { MyLargeButton } from './MyLargeButton';
-import { MyTextBox } from './MyTextBox';
-import { Header } from './Header';
+import MyLargeButton from './MyLargeButton';
+import MyTextBox from './MyTextBox';
+import Header from './Header';
 
-export class Login extends Component {
+export default class Login extends Component {
   constructor(props) {
     super(props);
     this._storeKeys();
