@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { ScrollView, FlatList,SafeAreaView, View, StyleSheet } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
+
+import { sendCredentials } from '../functions/authenticate.js';
+
 import Header from './Header';
 import Event from './Event';
 import MyLargeButton from './MyLargeButton';

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, ActivityIndicator, Text, StyleSheet } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import { RSA } from 'react-native-rsa-native';
+import { sendCredentials } from '../functions/authenticate.js';
 
 import MyLargeButton from './MyLargeButton';
 import MyTextBox from './MyTextBox';
@@ -66,49 +67,23 @@ export default class Login extends Component {
     const keys = ['username', 'password', 'token'];
     await AsyncStorage.multiRemove(keys)
 
-    // FETCH PARAMETERS
-    const url = 'https://ucon-gaming.org/reg/api/services.php?action=login';
-    const body = {
-      user: this.state.username,
-      pass: this.state.password
-    };
-
-    // WRAP FETCH IN A TIMEOUT (10000 MILLISECONDS)
-    let didTimeOut = false;
-    new Promise(function(resolve, reject) {
-      const timeout = setTimeout(function() {
-          didTimeOut = true;
-          reject(new Error('Request timed out'));
-        }, 10000);
-
-      // FETCH CALL
-      fetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json'},
-        body: JSON.stringify(body)
-      })
-      .then(response => {
-        clearTimeout(timeout);
-        resolve(response);
-      })
-      .catch(error => {
-        reject(error);
-      });
-    })
-    .then(async response => {
-      if (response.ok) {
-        const responseText = await response.text();
-        this._AuthResponseValid(responseText);
-      } else if (response.status === 401) {
-        this._AuthResponseInvalid();
-      } else {
-        // COULD BE A 404 OR 500 OR OTHER
-        this._AuthResponseError(response.status);
+    const response = await sendCredentials(this.state.username, this.state.password);
+    if (response.error === true) {
+      console.log(response);
+      switch (response.message) {
+        case "NetworkError":
+          this._AuthResponseCouldNotReach();
+          break;
+        case 401:
+          this._AuthResponseInvalid();
+          break;
+        default:
+          this._AuthResponseError(response.status);
+          break;
       }
-    })
-    .catch(error => {
-      this._AuthResponseCouldNotReach();
-    });
+    } else {
+      this._AuthResponseValid(response);
+    }
   }
 
   // IF VALID CREDENTIALS, STORE CREDENTIALS, TOKEN AND REDIRECT TO SCHEDULE PAGE.
