@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { View, TextInput, StyleSheet } from 'react-native';
 
+// A SIMPLE TEXTBOX. IF THE SECURE PROPERTY IS TRUE THE INPUT WILL BE
+// HIDDEN (PASSWORD FUNCTIONALITY).
+// YOU CAN ALSO PASS PLACEHOLDER TEXT AND A DEFAULT VALUE.
 export default class MyTextBox extends Component {
   render() {
     return (

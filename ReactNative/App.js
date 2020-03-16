@@ -9,15 +9,30 @@ import Schedule from './components/Schedule';
 
 const Drawer = createDrawerNavigator();
 
+
 export default class App extends Component {
   constructor() {
     super();
+
+    // CHECK IF A USERNAME, PASSWORD, AND TOKEN IS ALREADY STORED.
+    // IF SO, USER PREVIOUSLY AUTHENTICATED.
+    // DOES NOT VERIFY THAT CREDENTIALS OR TOKEN ARE VALID.
+    // THAT IS HANDLED WHEN THE TOKEN IS USED
     const authenticated = this._isAuthenticated();
+
+    // THIS CONTROLS WHICH SET OF SCREENS TO SHOW.
+    // THE UNAUTHENTICATED SCREENS (JUST LOGIN ATM) OR,
+    // THE AUTHENTICATED SCREENS (JUST SCHEDULE ATM)
     this.state = {authenticated: authenticated};
+
+    // FUNCTIONS PASSED TO OTHER SCREENS WHICH ALLOWS THOSE SCREENS
+    // TO UPDATE THE AUTHENTICATED STATE VARIABLE
     this._logout.bind(this);
     this._login.bind(this);
   }
 
+  // NOTHING IS ACTUALLY RENDERED HERE. THIS JUST CONTROLS
+  // WHICH SCREEN (OR SET OF SCREENS) WILL BE SHOWN.
   render() {
     return (
       <NavigationContainer>

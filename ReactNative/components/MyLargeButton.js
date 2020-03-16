@@ -2,8 +2,7 @@
 import React, { Component } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 
-{/* EACH COMPONENT SHOULD INCLUDE EVERYTHING IT NEEDS TO FUNCTION
-  ANY FUNCTIONS, STYLES, ETC... */}
+// A SIMPLE BUTTON THAT DOES WHATEVER IS PASSED IN THE press PROPERTY
 export default class MyLargeButton extends Component {
   render() {
     return (

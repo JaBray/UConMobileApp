@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
+// THIS COMPONENT IS SUPPOSED TO SHOW THE SUMMARY OF A SINGLE EVENT
+// IT IS BY THE SCHEDULE COMPONENT WHICH DISPLAYS A LIST OF THESE.
 export default class Event extends Component {
   render() {
     return (

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Image, StyleSheet } from 'react-native';
 
+// THE IMAGE THAT IS DISPLAED BY ALL PAGE COMPONENTS
 export default class Header extends Component {
   render() {
     return (

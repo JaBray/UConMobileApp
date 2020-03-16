@@ -7,12 +7,25 @@ import MyLargeButton from './MyLargeButton';
 import MyTextBox from './MyTextBox';
 import Header from './Header';
 
+// THIS IS A FULL PAGE COMPONENT WHICH DISPLAYS THE LOGIN SCREEN
+// THE USERNAME AND PASSWORD STATE VARIABLES ARE CHANGED WHEN THE TEXT BOXES
+// ARE UPDATED.
 export default class Login extends Component {
   constructor(props) {
     super(props);
+
+    // THIS STORES THE PUBLIC AND PRIVATE KEYS THAT ARE USED TO ENCRYPT/DECRYPT
+    // THE CREDENTIALS. IDEALLY, THESE WOULD NOT BE STORED ON THE DEVICE.
+    // PERHAPS THEY COULD BE RETRIEVED FROM A TLS CERTIFICATE.
     this._storeKeys();
 
+    // THE AUTH_RESPONSE IS THE RESPONSE WHEN A USER ATTEMPTS TO AUTHENTICATE
+    // (E.G. INVALID PASSWORD, CONNECTION ERROR, ETC.)
+    // AUTHENTICATING IS A FLAG TO PREVENT MULTIPLE AUTHENTICATION ATTEMPTS IF
+    // THE USER PRESSES THE BUTTON MULTIPLE TIMES
     this.state = { username: '', password: '', auth_response: '', authenticating: false};
+
+    // THESE FUNCTIONS ARE PASSED TO THE TEXT BOX TO UPDATE THE STATE
     this._setUsername.bind(this);
     this._setPassword.bind(this);
   }
@@ -38,22 +51,21 @@ export default class Login extends Component {
     this.setState({password: inputText});
   }
 
+  // THIS IS THE MAIN FUNCTION OF THIS SCREEN. IT CALLS THE API TO VALIDATE
+  // THE CREDENTIALS.
   _sendCredentials = async () => {
     // DON'T SEND CREDENTIALS IF IN THE MIDDLE OF SENDING
     if (this.state.authenticating) {
       return;
     }
+
     // TURN ON SPINNER, RESET AUTHN RESPONSE TEXT
     this.setState({authenticating: true, auth_response: ''});
+
     // REMOVE ANY STORED CREDENTIALS AS WE'LL REPLACE WITH NEW CREDENTIALS IF VALID.
     const keys = ['username', 'password', 'token'];
     await AsyncStorage.multiRemove(keys)
-    // JUST FOR TESTING INVALID CREDENTIALS. CAN BE REMOVED IN PRODUCTION
-    if (this.state.username.length < 4 || this.state.password.length < 4) {
-      this.setState({authenticating: false, auth_response: 'The username and password must be longer than' +
-      ' four characters.'});
-      return;
-    }
+
     // FETCH PARAMETERS
     const url = 'https://ucon-gaming.org/reg/api/services.php?action=login';
     const body = {
@@ -61,7 +73,7 @@ export default class Login extends Component {
       pass: this.state.password
     };
 
-    // WRAP FETCH IN A TIMEOUT (5 SECONDS)
+    // WRAP FETCH IN A TIMEOUT (10000 MILLISECONDS)
     let didTimeOut = false;
     new Promise(function(resolve, reject) {
       const timeout = setTimeout(function() {

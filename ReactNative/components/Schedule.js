@@ -6,35 +6,35 @@ import Event from './Event';
 import MyLargeButton from './MyLargeButton';
 import MySmallButton from './MySmallButton';
 
-// <ScrollView style={styles.container}>
-//   <Event title='Event 1' day='Friday, Nov 1' time='7pm'/>
-//   <Event title='Event 2' day='Saturday, Nov 2' time='1pm'/>
-//   <Event title='Event 3' day='Saturday, Nov 2' time='3pm'/>
-//   <Event title='Event 4' day='Sunday, Nov 3' time='3pm'/>
-//   <Event title='Event 5' day='Sunday, Nov 3' time='5pm'/>
-//   <MyLargeButton title="Logout" press={this._logout}/>
-// </ScrollView>
-
-// {this.state.events.map((event, i) => (
-//   <Event title={event.car} day={event.car_model} time={event.price}/>
-// ))}
-
+// THIS IS A FULL PAGE COMPONENT WHICH DISPLAYS THE SCHEDULE SCREEN
 export default class Schedule extends Component {
   constructor(props) {
     super(props);
     this._logout.bind(this);
+
+    // THE events STATE IS THE ARRAY OF EVENTS THAT IS PASSED TO THE FLATLIST
+    // COMPONENT
     this.state = {events: []};
   }
 
+  // WHEN THE PAGE RENDERS, ALL CALL IS MADE TO RETRIEVE THE SCHEDULE
+  // THIS ISMOUNTED VARIABLE IS REQUIRED TO PREVENT THE COMPONENT FROM TRYING
+  // TO SET THE EVENTS STATE WHEN THE APPLICATION LOADS
   componentDidMount() {
     this._isMounted = true;
     this._getSchedule();
   }
 
+  // UNSET THE ISMOUNTED VARIABLE. NOT POSITIVE THIS IS REQUIRED
   componentWillUnmount() {
     this._isMounted = false;
   }
 
+  // THE FLATLIST IS THE REAL ENGINE OF THIS VIEW. IT DISPLAYS A LIST OF
+  // EVENT COMPONENTS. THE BUTTONS ARE A TEST TO MAKE SURE WE CAN CHANGE
+  // WHAT LIST IS DISPLAYED BASED ON USER INPUT.
+  // EACH TIME A BUTTON IS PRESSED, THE EVENTS FOR THE PROVIDED KEY
+  // ARE PULLED FROM ASYNCSTORAGE AND THE events STATE IS UPDATED.
   render() {
     return (
       <View style={styles.container}>
@@ -57,14 +57,16 @@ export default class Schedule extends Component {
     );
   }
 
+  // CLEAR STORED CREDENTIALS AND SET THE STATE OF THE APP TO UNAUTHENTICATED
+  // THIS WILL DISPLAY THE LOGIN SCREEN
   _logout = async () => {
     const keys = ['username', 'password', 'token'];
     await AsyncStorage.multiRemove(keys)
     this.props.onLogout();
   }
 
+  // PULL THE REQUESTED ARRAY OF EVENTS FROM STORAGE AND UPDATE THE COMPONENT STATE
   _updateSchedule = async (make) => {
-    console.log('make', make);
     let a_car = JSON.parse(await AsyncStorage.getItem(make));
     let car_array = [];
     car_array.push(a_car);
@@ -73,6 +75,9 @@ export default class Schedule extends Component {
     }
   }
 
+  // CALLS THE API TO GET A LIST OF EVENTS. THESE ARE PARSED AND STORED
+  // IN ASYNC STORAGE. THE USER ID WILL BE THE KEY AND THE VALUE WILL BE THE
+  // SERIALIZED LIST OF JSON EVENTS
   _getSchedule = async () => {
 
     // GET TOKEN FROM STORAGE. IF MISSING SEND LOGOUT USER
@@ -123,6 +128,8 @@ export default class Schedule extends Component {
     });
   } // END _getSchedule
 
+
+  // TAKES THE SUCCESSFULL FETCH RESPONSE AND STORES THE KEY/VALUE PAIRS
   _parseSchedule = async (text) => {
     let response;
     try {
