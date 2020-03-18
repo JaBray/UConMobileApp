@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { View, TextInput, StyleSheet } from 'react-native';
 
-export class MyTextBox extends Component {
+// A SIMPLE TEXTBOX. IF THE SECURE PROPERTY IS TRUE THE INPUT WILL BE
+// HIDDEN (PASSWORD FUNCTIONALITY).
+// YOU CAN ALSO PASS PLACEHOLDER TEXT AND A DEFAULT VALUE.
+export default class MyTextBox extends Component {
   render() {
     return (
       <View style={styles.container}>
@@ -9,7 +12,8 @@ export class MyTextBox extends Component {
           style={styles.textInput}
           placeholder={this.props.placeholder}
           onChangeText={(text) => this._update(text)}
-          value = {this.props.plaintext}
+          value = {this.props.text}
+          secureTextEntry = {this.props.secure}
         />
     </View>
   )};
