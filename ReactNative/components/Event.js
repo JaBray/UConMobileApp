@@ -7,9 +7,8 @@ export default class Event extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.text}>Make: {this.props.title}</Text>
-        <Text style={styles.text}>Model: {this.props.day}</Text>
-        <Text style={styles.text}>Color: {this.props.time}</Text>
+        <Text style={styles.text}>DESCRIPTION</Text>
+        <Text style={styles.text}>{this.props.description}</Text>
       </View>
     );
   }

@@ -7,7 +7,7 @@
           "id": 5,
           "day": "Friday",
           "time": 12,
-          "tableNo": "(optional)",
+          "tableNo": 0,
           "short": "This is the description that will go on the detail screen, it's actually fairly long and includes a lot of information.",
           "shorter": "This is the description for the summary screen that includes some information",
         },

@@ -3,6 +3,7 @@ import { ScrollView, FlatList,SafeAreaView, View, StyleSheet } from 'react-nativ
 import AsyncStorage from '@react-native-community/async-storage';
 
 import { sendCredentials } from '../functions/authenticate.js';
+import { mockSchedule } from '../functions/mockSchedule.js';
 
 import Header from './Header';
 import Event from './Event';
@@ -17,7 +18,7 @@ export default class Schedule extends Component {
 
     // THE events STATE IS THE ARRAY OF EVENTS THAT IS PASSED TO THE FLATLIST
     // COMPONENT
-    this.state = {events: []};
+    this.state = {players: [], events: []};
   }
 
   // WHEN THE PAGE RENDERS, ALL CALL IS MADE TO RETRIEVE THE SCHEDULE
@@ -43,15 +44,14 @@ export default class Schedule extends Component {
       <View style={styles.container}>
         <SafeAreaView style={styles.container}>
           <Header />
-          <View style={styles.navigation}>
-            <MySmallButton title="Mitsubishi" press={this._updateSchedule.bind(this, 'Mitsubishi')}/>
-            <MySmallButton title="VW" press={this._updateSchedule.bind(this, 'Volkswagen')}/>
-            <MySmallButton title="Jeep" press={this._updateSchedule.bind(this, 'Jeep')}/>
-            <MySmallButton title="Dodge" press={this._updateSchedule.bind(this, 'Dodge')}/>
-          </View>
+          <FlatList
+            data={this.state.players}
+            renderItem={({item}) => <MyLargeButton title={item[1]} press={this._updateSchedule.bind(this, item[0])}/>}
+            keyExtractor={(item, index) => index.toString()}
+          />
           <FlatList
             data={this.state.events}
-            renderItem={({item}) => <Event title={item.make} day={item.model} time={item.color} />}
+            renderItem={({item}) => <Event description={item.shorter} />}
             keyExtractor={(item, index) => index.toString()}
           />
           <MyLargeButton title="Logout" press={this._logout}/>
@@ -69,12 +69,10 @@ export default class Schedule extends Component {
   }
 
   // PULL THE REQUESTED ARRAY OF EVENTS FROM STORAGE AND UPDATE THE COMPONENT STATE
-  _updateSchedule = async (make) => {
-    let a_car = JSON.parse(await AsyncStorage.getItem(make));
-    let car_array = [];
-    car_array.push(a_car);
+  _updateSchedule = async (id) => {
+    let events = JSON.parse(await AsyncStorage.getItem(id));
     if (this._isMounted) {
-      this.setState({events: car_array});
+      this.setState({events: events});
     }
   }
 
@@ -140,29 +138,26 @@ export default class Schedule extends Component {
     } catch (error) {
       // DISPLAY ERROR
     }
-    const events = response.cars.slice(0, 10);
+    const player_response = mockSchedule();
+    let players = [];
 
-    const eventsObject = events.map((car) => {
-      return {
-        make: car.car,
-        model: car.car_model,
-        color: car.car_color
-      }
-    });
-
-    for (const car of eventsObject) {
-      let car_string = JSON.stringify(car);
-      console.log('car', car);
-      await AsyncStorage.setItem(car.make, car_string);
+    for (const player of player_response.players) {
+      players.push([
+          player.id_member,
+          player.name
+      ]);
+      let events_string = JSON.stringify(player.events);
+      await AsyncStorage.setItem(player.id_member, events_string);
     }
 
-    let a_car = JSON.parse(await AsyncStorage.getItem('Mitsubishi'));
-    let car_array = [];
+    this.state.players = players;
+    players_string = JSON.stringify(players);
+    await AsyncStorage.setItem('players', players_string);
 
-    car_array.push(a_car);
+    let player2_events = JSON.parse(await AsyncStorage.getItem('2'));
 
     if (this._isMounted) {
-      this.setState({events: car_array});
+      this.setState({events: player2_events});
     }
   }
 
