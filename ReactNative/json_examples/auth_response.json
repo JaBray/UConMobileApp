@@ -4,6 +4,7 @@
     "hash": "xxx",
     "expire": 0123456789,
     "cookie_name": "phpauth_session_cookie",
+    "myCurrentYear": 2020,
     "members": [
         "2": {
             "id_member": "2",

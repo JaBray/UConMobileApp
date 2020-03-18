@@ -4,18 +4,20 @@
       "id_member": "2",
       "events": [
         {
-          "title": "game1",
-          "name": "game1",
-          "room": "room1",
+          "id": 5,
           "day": "Friday",
-          "time": "5:00"
+          "time": 12,
+          "tableNo": "(optional)",
+          "short": "This is the description that will go on the detail screen, it's actually fairly long and includes a lot of information.",
+          "shorter": "This is the description for the summary screen that includes some information",
         },
         {
-          "title": "game1",
-          "name": "game1",
-          "room": "room1",
+          "id": 6,
           "day": "Friday",
-          "time": "5:00"
+          "time": 12,
+          "tableNo": 7,
+          "short": "game1",
+          "shorter": "this is game1",
         }
       ]
     },
@@ -23,11 +25,12 @@
       "id_member": "151",
       "events": [
         {
-          "title": "game1",
-          "name": "game1",
-          "room": "room1",
+          "id": 5,
           "day": "Friday",
-          "time": "5:00"
+          "time": 12,
+          "tableNo": 7,
+          "short": "game1",
+          "shorter": "this is game1",
         }
       ]
     }
