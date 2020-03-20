@@ -3,7 +3,7 @@ import { ScrollView, FlatList,SafeAreaView, View, StyleSheet } from 'react-nativ
 import AsyncStorage from '@react-native-community/async-storage';
 
 import { sendCredentials } from '../functions/authenticate.js';
-import { mockSchedule } from '../functions/mockSchedule.js';
+import { getSchedule } from '../functions/get_schedule.js';
 
 import Header from './Header';
 import Event from './Event';
@@ -18,15 +18,17 @@ export default class Schedule extends Component {
 
     // THE events STATE IS THE ARRAY OF EVENTS THAT IS PASSED TO THE FLATLIST
     // COMPONENT
-    this.state = {players: [], events: []};
+    this.state = {members: [], events: []};
+
   }
 
   // WHEN THE PAGE RENDERS, ALL CALL IS MADE TO RETRIEVE THE SCHEDULE
   // THIS ISMOUNTED VARIABLE IS REQUIRED TO PREVENT THE COMPONENT FROM TRYING
   // TO SET THE EVENTS STATE WHEN THE APPLICATION LOADS
-  componentDidMount() {
+  async componentDidMount() {
     this._isMounted = true;
-    this._getSchedule();
+    const startState = await this._intialize();
+    this.setState({members: startState.members, events: startState.events})
   }
 
   // UNSET THE ISMOUNTED VARIABLE. NOT POSITIVE THIS IS REQUIRED
@@ -45,7 +47,7 @@ export default class Schedule extends Component {
         <SafeAreaView style={styles.container}>
           <Header />
           <FlatList
-            data={this.state.players}
+            data={this.state.members}
             renderItem={({item}) => <MyLargeButton title={item[1]} press={this._updateSchedule.bind(this, item[0])}/>}
             keyExtractor={(item, index) => index.toString()}
           />
@@ -60,11 +62,23 @@ export default class Schedule extends Component {
     );
   }
 
+  _intialize = async () => {
+    const membersString =  await AsyncStorage.getItem('members');
+    const memberObject = JSON.parse(membersString);
+    const response = await getSchedule();
+    const firstMemberId = response.message;
+    const firstMemberEvents = await AsyncStorage.getItem(firstMemberId.toString());
+    return {
+      members: memberObject,
+      events: firstMemberEvents
+    };
+  }
+
   // CLEAR STORED CREDENTIALS AND SET THE STATE OF THE APP TO UNAUTHENTICATED
   // THIS WILL DISPLAY THE LOGIN SCREEN
   _logout = async () => {
-    const keys = ['username', 'password', 'token'];
-    await AsyncStorage.multiRemove(keys)
+    const keys = ['username', 'password', 'token', 'members'];
+    await AsyncStorage.multiRemove(keys);
     this.props.onLogout();
   }
 
@@ -80,96 +94,19 @@ export default class Schedule extends Component {
   // IN ASYNC STORAGE. THE USER ID WILL BE THE KEY AND THE VALUE WILL BE THE
   // SERIALIZED LIST OF JSON EVENTS
   _getSchedule = async () => {
-
-    // GET TOKEN FROM STORAGE. IF MISSING SEND LOGOUT USER
-    const token = await AsyncStorage.getItem('token');
-    if (!token) {
-      this._logout();
-    }
-
-    // FETCH PARAMETERS
-    const url = 'https://myfakeapi.com/api/cars/';
-
-    // WRAP FETCH IN A TIMEOUT (5 SECONDS)
-    let didTimeOut = false;
-    new Promise(function(resolve, reject) {
-      const timeout = setTimeout(function() {
-          didTimeOut = true;
-          reject(new Error('Request timed out'));
-        }, 10000);
-
-      // FETCH CALL
-      fetch(url, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`}
-      })
-      .then(response => {
-        clearTimeout(timeout);
-        resolve(response);
-      })
-      .catch(error => {
-        reject(error);
-      });
-    })
-    .then(async response => {
-      if (response.ok) {
-        const responseText = await response.text();
-        this._parseSchedule(responseText);
-      } else if (response.status === 401) {
-        this._processUnauthorized();
+      const response = await getSchedule();
+      if (response.error) {
+        // DO SOMETHING SMART
       } else {
-        // COULD BE A 404 OR 500 OR OTHER
-        this._processError(response.status);
+        const firstMemberId = response.message;
+        const firstMemberEvents = await AsyncStorage.getItem(firstMemberId.toString());
+        console.log(firstMemberEvents);
+        if (this._isMounted) {
+          this.setState({events: firstMemberEvents});
+        }
       }
-    })
-    .catch(error => {
-      this._processError(error);
-    });
-  } // END _getSchedule
-
-
-  // TAKES THE SUCCESSFULL FETCH RESPONSE AND STORES THE KEY/VALUE PAIRS
-  _parseSchedule = async (text) => {
-    let response;
-    try {
-      response = JSON.parse(text);
-    } catch (error) {
-      // DISPLAY ERROR
-    }
-    const player_response = mockSchedule();
-    let players = [];
-
-    for (const player of player_response.players) {
-      players.push([
-          player.id_member,
-          player.name
-      ]);
-      let events_string = JSON.stringify(player.events);
-      await AsyncStorage.setItem(player.id_member, events_string);
-    }
-
-    this.state.players = players;
-    players_string = JSON.stringify(players);
-    await AsyncStorage.setItem('players', players_string);
-
-    let player2_events = JSON.parse(await AsyncStorage.getItem('2'));
-
-    if (this._isMounted) {
-      this.setState({events: player2_events});
-    }
   }
 
-  _processUnauthorized = () => {
-    // SEND USERNAME AND PASSWORD FOR ANOTHER TOKEN
-    console.log('_processUnauthorized');
-  }
-
-  _processError = (error) => {
-    // DISPLAY ERROR MESSAGE
-    console.log(error);
-  }
 
 } // END CLASS
 

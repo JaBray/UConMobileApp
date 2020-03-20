@@ -24,7 +24,7 @@ exports[`Event renders correctly 1`] = `
       }
     }
   >
-    Make: 
+    DESCRIPTION
   </Text>
   <Text
     style={
@@ -33,19 +33,7 @@ exports[`Event renders correctly 1`] = `
         "marginBottom": 5,
       }
     }
-  >
-    Model: 
-  </Text>
-  <Text
-    style={
-      Object {
-        "fontSize": 16,
-        "marginBottom": 5,
-      }
-    }
-  >
-    Color: 
-  </Text>
+  />
 </View>
 `;
 
@@ -241,187 +229,33 @@ exports[`Schedule renders correctly 1`] = `
         }
       />
     </View>
-    <View
-      style={
-        Object {
-          "flexDirection": "row",
-          "justifyContent": "space-around",
-        }
-      }
+    <RCTScrollView
+      data={Array []}
+      disableVirtualization={false}
+      getItem={[Function]}
+      getItemCount={[Function]}
+      horizontal={false}
+      initialNumToRender={10}
+      keyExtractor={[Function]}
+      maxToRenderPerBatch={10}
+      numColumns={1}
+      onContentSizeChange={[Function]}
+      onEndReachedThreshold={2}
+      onLayout={[Function]}
+      onMomentumScrollEnd={[Function]}
+      onScroll={[Function]}
+      onScrollBeginDrag={[Function]}
+      onScrollEndDrag={[Function]}
+      removeClippedSubviews={false}
+      renderItem={[Function]}
+      scrollEventThrottle={50}
+      stickyHeaderIndices={Array []}
+      updateCellsBatchingPeriod={50}
+      viewabilityConfigCallbackPairs={Array []}
+      windowSize={21}
     >
-      <View
-        style={
-          Object {
-            "flexDirection": "row",
-            "justifyContent": "center",
-            "marginBottom": 20,
-          }
-        }
-      >
-        <View
-          accessible={true}
-          focusable={true}
-          isTVSelectable={true}
-          onClick={[Function]}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
-          style={
-            Object {
-              "alignItems": "center",
-              "backgroundColor": "dodgerblue",
-              "borderRadius": 50,
-              "opacity": 1,
-              "padding": 12,
-              "width": 100,
-            }
-          }
-        >
-          <Text
-            style={
-              Object {
-                "color": "white",
-                "fontSize": 16,
-              }
-            }
-          >
-            Mitsubishi
-          </Text>
-        </View>
-      </View>
-      <View
-        style={
-          Object {
-            "flexDirection": "row",
-            "justifyContent": "center",
-            "marginBottom": 20,
-          }
-        }
-      >
-        <View
-          accessible={true}
-          focusable={true}
-          isTVSelectable={true}
-          onClick={[Function]}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
-          style={
-            Object {
-              "alignItems": "center",
-              "backgroundColor": "dodgerblue",
-              "borderRadius": 50,
-              "opacity": 1,
-              "padding": 12,
-              "width": 100,
-            }
-          }
-        >
-          <Text
-            style={
-              Object {
-                "color": "white",
-                "fontSize": 16,
-              }
-            }
-          >
-            VW
-          </Text>
-        </View>
-      </View>
-      <View
-        style={
-          Object {
-            "flexDirection": "row",
-            "justifyContent": "center",
-            "marginBottom": 20,
-          }
-        }
-      >
-        <View
-          accessible={true}
-          focusable={true}
-          isTVSelectable={true}
-          onClick={[Function]}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
-          style={
-            Object {
-              "alignItems": "center",
-              "backgroundColor": "dodgerblue",
-              "borderRadius": 50,
-              "opacity": 1,
-              "padding": 12,
-              "width": 100,
-            }
-          }
-        >
-          <Text
-            style={
-              Object {
-                "color": "white",
-                "fontSize": 16,
-              }
-            }
-          >
-            Jeep
-          </Text>
-        </View>
-      </View>
-      <View
-        style={
-          Object {
-            "flexDirection": "row",
-            "justifyContent": "center",
-            "marginBottom": 20,
-          }
-        }
-      >
-        <View
-          accessible={true}
-          focusable={true}
-          isTVSelectable={true}
-          onClick={[Function]}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
-          style={
-            Object {
-              "alignItems": "center",
-              "backgroundColor": "dodgerblue",
-              "borderRadius": 50,
-              "opacity": 1,
-              "padding": 12,
-              "width": 100,
-            }
-          }
-        >
-          <Text
-            style={
-              Object {
-                "color": "white",
-                "fontSize": 16,
-              }
-            }
-          >
-            Dodge
-          </Text>
-        </View>
-      </View>
-    </View>
+      <View />
+    </RCTScrollView>
     <RCTScrollView
       data={Array []}
       disableVirtualization={false}
