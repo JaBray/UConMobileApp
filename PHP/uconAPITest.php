@@ -22,7 +22,7 @@
 	
 	if($_SERVER["REQUEST_METHOD"] == "POST"){
 			
-			getUserEvents($_POST['userID'], 2019);
+			getUserEvents($_POST['userID']);
 		
 	}
 
