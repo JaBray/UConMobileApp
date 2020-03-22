@@ -4,21 +4,21 @@ import {NavigationContainer} from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import AsyncStorage from '@react-native-community/async-storage';
 
+// CUSTOM FUNCTIONS
+import { storeKeys } from './functions/store_keys.js';
+
+// CUSTOM COMPONENTS
 import Login from './components/Login';
 import Schedule from './components/Schedule';
 
 const Drawer = createDrawerNavigator();
 
-
 export default class App extends Component {
   constructor() {
     super();
 
-    // CHECK IF A USERNAME, PASSWORD, AND TOKEN IS ALREADY STORED.
-    // IF SO, USER PREVIOUSLY AUTHENTICATED.
-    // DOES NOT VERIFY THAT CREDENTIALS OR TOKEN ARE VALID.
-    // THAT IS HANDLED WHEN THE TOKEN IS USED
-    const authenticated = this._isAuthenticated();
+    // GET ALL STORED ITEMS TO SEE IF KEYS STORED AND IF AUTHENTICATED
+    const authenticated = this._setState();
 
     // THIS CONTROLS WHICH SET OF SCREENS TO SHOW.
     // THE UNAUTHENTICATED SCREENS (JUST LOGIN ATM) OR,
@@ -51,22 +51,41 @@ export default class App extends Component {
     );
   }
 
+  // SETS THE AUTHENTICATED STATE TO TRUE
+  // SETS THE MEMBERLIST TO AN ARRAY OF OBJECTS WITH MEMBER ID AND NAME
+  // SETS THE INITIALSCHEDULE TO THE SCHEDULE OF THE FIRST USER
   _login = (memberObject, firstMemberEvents) => {
     this.setState({memberList: memberObject, initialSchedule: firstMemberEvents, authenticated: true});
   }
 
+  // REMOVE ALL STORED INFORMATION EXCEPT THE PUBLIC AND PRIVATE KEYS USED
+  // FOR ENCRYPTION. THIS IS DEPENDENT ON THE KEY NAMES USED IN THE
+  // store_keys.js FILE
   _logout = async () => {
-    const keys = await AsyncStorage.getAllKeys()
-    // const keys = ['username', 'password', 'token', 'members'];
-    await AsyncStorage.multiRemove(keys);
+    const keys = await AsyncStorage.getAllKeys();
+    const filteredKeys = keys.filter(currentValue => {
+      return currentValue !== 'public' && currentValue !== 'private';
+    });
+
+    await AsyncStorage.multiRemove(filteredKeys);
     this.setState({authenticated: false});
   }
 
-  _isAuthenticated = async () => {
-    const keys = await AsyncStorage.getAllKeys();
-    if (keys.includes('username') && keys.includes('password') && keys.includes('token')) {
-      return true;
-    }
-    return false;
+  // GET ALL CURRENTLY STORED KEYS
+  // IF ENCRYPTION KEYS ARE NOT STORED THEN STORE THEM
+  // IF USERNAME, PASSWORD, AND TOKEN ARE NOT STORED, THEN NOT AUTHENTICATED
+  _setState = () => {
+    AsyncStorage.getAllKeys()
+      .then(async (keys) => {
+        if (!keys.includes('public') || !keys.includes('private')) {
+          await this.storeKeys();
+        }
+
+        return (keys.includes('username') && keys.includes('password') && keys.includes('token'));
+      })
+      // IF THERE IS AN ERROR HERE, THEN SOMETHING IS WRONG. NOT SURE HOW TO RECOVER JUST YET.
+      .catch(error => {
+        return false;
+      })
   }
 }

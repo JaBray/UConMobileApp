@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import { View, ActivityIndicator, Text, StyleSheet } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import { RSA } from 'react-native-rsa-native';
-import { storeKeys } from '../functions/store_keys.js';
-import { sendCredentials } from '../functions/authenticate.js';
+
+// CUSTOM FUNCTIONS
+import { authenticate } from '../functions/authenticate.js';
 import { getSchedule } from '../functions/get_schedule.js';
 
+// CUSTOM COMPONENTS
 import MyLargeButton from './MyLargeButton';
 import MyTextBox from './MyTextBox';
 import Header from './Header';
@@ -16,7 +18,6 @@ import Header from './Header';
 export default class Login extends Component {
   constructor(props) {
     super(props);
-    storeKeys();
 
     // THE AUTH_RESPONSE IS THE RESPONSE WHEN A USER ATTEMPTS TO AUTHENTICATE
     // (E.G. INVALID PASSWORD, CONNECTION ERROR, ETC.)
@@ -62,20 +63,35 @@ export default class Login extends Component {
     this.setState({authenticating: true, auth_response: ''});
 
     // sendCredentials RETURNS EITHER A SUCCESS OR FAILURE OBJECT
-    const response = await sendCredentials(this.state.username, this.state.password);
+    // IF SUCCESSFUL 'username', 'password', 'token' ARE STORED
+    // IF SUCCESSFUL 'members' IS ALSO STORED.
+    await authenticate(this.state.username, this.state.password)
+      .then(async responseObject => {
+        if (responseObject.error === true) {
+          this.setState({authenticating: false, auth_response: responseObject.message});
+        } else {
 
-    const membersString =  await AsyncStorage.getItem('members');
-    const memberObject = JSON.parse(membersString);
-    const scheduleResponse = await getSchedule();
-    const firstMemberId = scheduleResponse.message;
-    const firstMemberEvents = await AsyncStorage.getItem(firstMemberId.toString());
-    const events = JSON.parse(firstMemberEvents);
+          // GET LIST OF MEMBERS
+          const members = await AsyncStorage.getItem('members')
+            .then(membersString => JSON.parse(membersString));
 
-    if (response.error === true) {
-      this.setState({authenticating: false, auth_response: response.message});
-    } else {
-      this.props.onLogin(memberObject, events);
-    }
+          // GET LIST OF EVENTS FOR FIRST MEMBER
+          const events = await getSchedule()
+            .then(async schedule => {
+              const firstMemberId = schedule.message.toString();
+              return await AsyncStorage.getItem(firstMemberId)
+                .then(events => JSON.parse(events));
+            });
+
+          // PASS MEMBERS AND EVENTS TO APP.JS TO DISPLAY A BUTTON FOR
+          // EACH MEMBERS AND THE EVENTS FOR THE FIRST MEMBER
+          this.props.onLogin(members, events);
+        }
+      })
+      .catch(error => {
+        this.setState({authenticating: false, auth_response: `An error occurred while getting your schedules.
+          Please try again or contact an administrator. Error: ${error}`});
+      });
   }
 }
 

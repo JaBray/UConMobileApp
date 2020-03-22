@@ -3,7 +3,7 @@ import { RSA } from 'react-native-rsa-native';
 import { getSchedule } from '../functions/get_schedule.js';
 
 // ACCEPTS USERNAME AND PASSWORD AND RETURNS auth_response.json
-export async function sendCredentials(username, password) {
+export async function authenticate(username, password) {
 
   // REMOVE ANY STORED CREDENTIALS AS WE'LL REPLACE WITH NEW CREDENTIALS IF VALID.
   const keys = ['username', 'password', 'token'];
@@ -37,7 +37,13 @@ export async function sendCredentials(username, password) {
   }) // NEXT CALL IN PROMISE
   .then(async response => {
     if (response.ok) {
-      return authResponseValid(response, username, password);
+      return await authResponseValid(response, username, password)
+        .then(async auth_response => {
+          if (auth_response.members) {
+            await storeMemberNames(auth_response.members);
+          }
+          return auth_response;
+        });
     }
 
     if (response.status === 401) {
@@ -46,7 +52,7 @@ export async function sendCredentials(username, password) {
     return getErrorMessage(`Error: ${response.status}. An error occurred during login. Please try again or contact the administrator.`);
   })
   .catch(error => {
-    return getErrorMessage('The authentication server could not be reached. Please try again or contact the administrator.');
+    return getErrorMessage(`The authentication server could not be reached. Please try again or contact the administrator. ${error}`);
   });
 }
 
@@ -62,7 +68,6 @@ async function authResponseValid(response, username, password) {
     await AsyncStorage.setItem('username', encryptedUsername.toString());
     await AsyncStorage.setItem('password', encryptedPassword.toString());
     await AsyncStorage.setItem('token', hash.toString());
-    storeMemberNames(responseObject.members);
     return responseObject;
   } catch (error) {
     return getErrorMessage(`ERROR: The authentication server's response was not understood. Please try again or contact the administrator. ${error}`)
