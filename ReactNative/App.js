@@ -23,7 +23,7 @@ export default class App extends Component {
     // THIS CONTROLS WHICH SET OF SCREENS TO SHOW.
     // THE UNAUTHENTICATED SCREENS (JUST LOGIN ATM) OR,
     // THE AUTHENTICATED SCREENS (JUST SCHEDULE ATM)
-    this.state = {authenticated: authenticated};
+    this.state = {authenticated: authenticated, memberList: [], initialSchedule: []};
 
     // FUNCTIONS PASSED TO OTHER SCREENS WHICH ALLOWS THOSE SCREENS
     // TO UPDATE THE AUTHENTICATED STATE VARIABLE
@@ -38,8 +38,8 @@ export default class App extends Component {
       <NavigationContainer>
         <Drawer.Navigator initialRouteName="Login">
           {this.state.authenticated ? (
-            <Drawer.Screen name="Schedule">
-              {props => <Schedule {...props} onLogout={this._logout} />}
+          <Drawer.Screen name="Schedule">
+              {props => <Schedule {...props} onLogout={this._logout} memberList={this.state.memberList} initialSchedule={this.state.initialSchedule} />}
             </Drawer.Screen>
             ) : (
               <Drawer.Screen name="Login">
@@ -51,11 +51,14 @@ export default class App extends Component {
     );
   }
 
-  _login = () => {
-    this.setState({authenticated: true});
+  _login = (memberObject, firstMemberEvents) => {
+    this.setState({memberList: memberObject, initialSchedule: firstMemberEvents, authenticated: true});
   }
 
-  _logout = () => {
+  _logout = async () => {
+    const keys = await AsyncStorage.getAllKeys()
+    // const keys = ['username', 'password', 'token', 'members'];
+    await AsyncStorage.multiRemove(keys);
     this.setState({authenticated: false});
   }
 

@@ -4,6 +4,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { RSA } from 'react-native-rsa-native';
 import { storeKeys } from '../functions/store_keys.js';
 import { sendCredentials } from '../functions/authenticate.js';
+import { getSchedule } from '../functions/get_schedule.js';
 
 import MyLargeButton from './MyLargeButton';
 import MyTextBox from './MyTextBox';
@@ -63,10 +64,17 @@ export default class Login extends Component {
     // sendCredentials RETURNS EITHER A SUCCESS OR FAILURE OBJECT
     const response = await sendCredentials(this.state.username, this.state.password);
 
+    const membersString =  await AsyncStorage.getItem('members');
+    const memberObject = JSON.parse(membersString);
+    const scheduleResponse = await getSchedule();
+    const firstMemberId = scheduleResponse.message;
+    const firstMemberEvents = await AsyncStorage.getItem(firstMemberId.toString());
+    const events = JSON.parse(firstMemberEvents);
+
     if (response.error === true) {
       this.setState({authenticating: false, auth_response: response.message});
     } else {
-      this.props.onLogin();
+      this.props.onLogin(memberObject, events);
     }
   }
 }

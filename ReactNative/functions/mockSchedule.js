@@ -6,6 +6,7 @@ export function mockSchedule() {
         "name": "Jane Doe",
         "events": [
           {
+            "title": "My Title",
             "id": 5,
             "day": "Friday",
             "time": 12,
@@ -14,6 +15,7 @@ export function mockSchedule() {
             "shorter": "This is the description for the summary screen that includes some information",
           },
           {
+            "title": "My Title",
             "id": 6,
             "day": "Friday",
             "time": 12,
@@ -28,6 +30,7 @@ export function mockSchedule() {
         "name": "Brother Bob",
         "events": [
           {
+            "title": "My Title",
             "id": 5,
             "day": "Friday",
             "time": 12,
