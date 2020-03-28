@@ -11,9 +11,9 @@ export default class Schedule extends Component {
   constructor(props) {
     super(props);
 
-    const events = props.initialSchedule ? props.initialSchedule : [];
+    const events = this._getSchedule();
     // THE events STATE IS THE ARRAY OF EVENTS THAT IS PASSED TO THE FLATLIST
-    this.state = {members: props.memberList, events: events};
+    this.state = { events: events };
   }
 
   // THE FLATLIST IS THE REAL ENGINE OF THIS VIEW. IT DISPLAYS A LIST OF
@@ -27,11 +27,6 @@ export default class Schedule extends Component {
         <SafeAreaView style={styles.container}>
           <Header />
           <FlatList
-            data={this.state.members}
-            renderItem={({item}) => <MyLargeButton title={item[1]} press={this._updateSchedule.bind(this, item[0])}/>}
-            keyExtractor={(item, index) => index.toString()}
-          />
-          <FlatList
             data={this.state.events}
             renderItem={({item}) => <Event description={item.shorter} day={item.day} title={item.title}/>}
             keyExtractor={(item, index) => index.toString()}
@@ -43,7 +38,8 @@ export default class Schedule extends Component {
   }
 
   // PULL THE REQUESTED ARRAY OF EVENTS FROM STORAGE AND UPDATE THE COMPONENT STATE
-  _updateSchedule = async (id) => {
+  _getSchedule = async () => {
+    const id = this.props.memberId;
     const events = JSON.parse(await AsyncStorage.getItem(id));
     this.setState({events: events});
   }

@@ -23,7 +23,7 @@ export default class App extends Component {
     // THIS CONTROLS WHICH SET OF SCREENS TO SHOW.
     // THE UNAUTHENTICATED SCREENS (JUST LOGIN ATM) OR,
     // THE AUTHENTICATED SCREENS (JUST SCHEDULE ATM)
-    this.state = {authenticated: authenticated, memberList: [], initialSchedule: []};
+    this.state = { authenticated: authenticated, memberList: [] };
 
     // FUNCTIONS PASSED TO OTHER SCREENS WHICH ALLOWS THOSE SCREENS
     // TO UPDATE THE AUTHENTICATED STATE VARIABLE
@@ -38,14 +38,17 @@ export default class App extends Component {
       <NavigationContainer>
         <Drawer.Navigator initialRouteName="Login">
           {this.state.authenticated ? (
-          <Drawer.Screen name="Schedule">
-              {props => <Schedule {...props} onLogout={this._logout} memberList={this.state.memberList} initialSchedule={this.state.initialSchedule} />}
-            </Drawer.Screen>
-            ) : (
+            this.state.memberList.map(member => (
+               <Drawer.Screen name={member[1]}>
+                 {props => <Schedule {...props} onLogout={this._logout} memberId={member[0]} />}
+               </Drawer.Screen>
+             ))
+          ) : (
               <Drawer.Screen name="Login">
                 {props => <Login {...props} onLogin={this._login} />}
               </Drawer.Screen>
-            )}
+            )
+          }
         </Drawer.Navigator>
       </NavigationContainer>
     );

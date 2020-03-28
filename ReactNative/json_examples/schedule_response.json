@@ -8,8 +8,13 @@
           "day": "Friday",
           "time": 12,
           "tableNo": 0,
-          "short": "This is the description that will go on the detail screen, it's actually fairly long and includes a lot of information.",
-          "shorter": "This is the description for the summary screen that includes some information",
+          "short": "9000 Savage Worlds: Tango at East Texas University, GM: Laura Hamel
+            (Matinee Adventures), 6 players, No XP/Simple, Sunday 2p-6p. Midterms,
+            hunting vamps, and clubbing at Raven's Loft. Sneak a few beers and ask
+            the redhead to dance. What could go wrong? Adults Only (18+) $4.00",
+          "shorter": "9000 Savage Worlds: Tango at East Texas University,
+            GM: Laura Hamel (Matinee Adventures), 6 players, No XP/Simple,
+            Sunday 2p-6p. Adults Only (18+) $4.00",
         },
         {
           "id": 6,
