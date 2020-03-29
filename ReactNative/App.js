@@ -1,7 +1,8 @@
 import 'react-native-gesture-handler';
 import React, { Component } from 'react';
+import { Text, StyleSheet } from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createDrawerNavigator, DrawerItem } from '@react-navigation/drawer';
 import AsyncStorage from '@react-native-community/async-storage';
 
 // CUSTOM FUNCTIONS
@@ -10,7 +11,7 @@ import { storeKeys } from './functions/store_keys.js';
 // CUSTOM COMPONENTS
 import Login from './components/Login';
 import Schedule from './components/Schedule';
-
+import MyDrawerContent from './components/MyDrawerContent'
 const Drawer = createDrawerNavigator();
 
 export default class App extends Component {
@@ -36,15 +37,24 @@ export default class App extends Component {
   render() {
     return (
       <NavigationContainer>
-        <Drawer.Navigator initialRouteName="Login">
+        <Drawer.Navigator
+          drawerContent={props => <MyDrawerContent {...props} /> }
+          drawerContentOptions={{
+            labelStyle:  styles.labelStyle ,
+            itemStyle: styles.itemStyle
+          }}
+          drawerStyle={styles.drawer}
+          overlayColor='#FFFFFF80'
+          initialRouteName="Login"
+        >
           {this.state.authenticated ? (
             this.state.memberList.map(member => (
-               <Drawer.Screen name={member[1]}>
+               <Drawer.Screen name={member[1]} options={{ title: `Events: ${member[1]}` }} >
                  {props => <Schedule {...props} onLogout={this._logout} memberId={member[0]} />}
                </Drawer.Screen>
              ))
           ) : (
-              <Drawer.Screen name="Login">
+              <Drawer.Screen name="Login" options={{ title: 'Sign in' }} >
                 {props => <Login {...props} onLogin={this._login} />}
               </Drawer.Screen>
             )
@@ -92,3 +102,20 @@ export default class App extends Component {
       })
   }
 }
+
+const styles = StyleSheet.create({
+  drawer: {
+    marginTop: 15,
+    marginBottom: 15,
+    borderTopRightRadius: 20,
+    borderBottomRightRadius: 20,
+    backgroundColor: '#333333EE'
+  },
+  labelStyle: {
+    fontSize: 18,
+    color: 'white'
+  },
+  itemStyle: {
+    marginVertical: 5
+  }
+});
