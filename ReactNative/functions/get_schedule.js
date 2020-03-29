@@ -36,6 +36,8 @@ export async function getSchedule(firstAttempt = true) {
         return parseSchedule(response);
       } else if (response.status === 401) {
         if (firstAttempt) {
+
+          // TODO: DECRYPT CREDENTIALS BEFORE SENDING
           const username = await AsyncStorage.getItem('username');
           const password = await AsyncStorage.getItem('password');
           sendCredentials(username, password);
