@@ -28,7 +28,20 @@ export default class Schedule extends Component {
           <Header />
           <FlatList
             data={this.state.events}
-            renderItem={({item}) => <Event description={item.shorter} day={item.day} title={item.title}/>}
+            // add event properties inside <Event>
+            renderItem={({item}) =>
+            <Event
+              title={item.title}
+              day={item.day}
+              time={item.time}
+              e_time={item.e_time}
+              s_fname={item.s_fname}
+              s_lname={item.s_lname}
+              i_maxplayers={item.i_maxplayers}
+              e_exper={item.e_exper}
+              e_complex={item.e_complex}
+              s_room={item.s_room}
+            />}
             keyExtractor={(item, index) => index.toString()}
           />
           <MyLargeButton title="Logout" press={this.props.onLogout}/>
