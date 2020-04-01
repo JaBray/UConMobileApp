@@ -19,7 +19,7 @@ export default class Event extends Component {
       //   <Text style={styles.text}>{this.props.description}</Text>
       // </View>
       <ScrollView style={styles.viewStyle}>
-        <Text style={styles.timeStyle}>{this.props.time}</Text>
+        <Text style={styles.timeStyle}>{this.props.time.toUpperCase()}</Text>
         <View style={styles.horizontalLineStyle}></View>
         <Text style={styles.gameSubjectStyle}>{this.props.title}</Text>
         <Text style={styles.gameDescriptiontStyle}>
@@ -28,7 +28,7 @@ export default class Event extends Component {
           {"\n"}{this.props.day} {this.props.time.toLowerCase()}-{this.props.e_time.toLowerCase()},
           {" "}{this.props.s_room}
         </Text>
-        <Text style={styles.timeStyle}>{this.props.e_time}</Text>
+        <Text style={styles.timeStyle}>{this.props.e_time.toUpperCase()}</Text>
         <View style={styles.horizontalLineStyle}></View>
       </ScrollView>
     );
