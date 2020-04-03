@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { ScrollView, View, Text, StyleSheet } from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
 
 // THIS COMPONENT IS SUPPOSED TO SHOW THE SUMMARY OF A SINGLE EVENT
 // IT IS BY THE SCHEDULE COMPONENT WHICH DISPLAYS A LIST OF THESE.
@@ -19,7 +20,9 @@ export default class Event extends Component {
       //   <Text style={styles.text}>{this.props.description}</Text>
       // </View>
       <ScrollView style={styles.viewStyle}>
-        <Text style={styles.timeStyle}>{this.props.time}</Text>
+        <LinearGradient colors={['#33ccff', '#33ccff', '#ffff00']} style={styles.linearGradient}>
+          <Text style={styles.timeStyle}>{this.props.time}</Text>
+        </LinearGradient>
         <View style={styles.horizontalLineStyle}></View>
         <Text style={styles.gameSubjectStyle}>{this.props.title}</Text>
         <Text style={styles.gameDescriptiontStyle}>
@@ -28,7 +31,9 @@ export default class Event extends Component {
           {"\n"}{this.props.day} {this.props.time.toLowerCase()}-{this.props.e_time.toLowerCase()},
           {" "}{this.props.s_room}
         </Text>
-        <Text style={styles.timeStyle}>{this.props.e_time}</Text>
+        <LinearGradient colors={['#33ccff', '#33ccff', '#ffff00']} style={styles.linearGradient}>
+          <Text style={styles.timeStyle}>{this.props.e_time}</Text>
+        </LinearGradient>
         <View style={styles.horizontalLineStyle}></View>
       </ScrollView>
     );
@@ -54,6 +59,13 @@ const styles = StyleSheet.create({
   //   marginBottom: 5,
   //   fontSize: 16
   // }
+  linearGradient: {
+    flex: 1,
+    paddingLeft: 15,
+    paddingRight: 15,
+    borderRadius: 5,
+    marginRight: 10,
+  },
 
   viewStyle: {
     marginHorizontal: 10,
