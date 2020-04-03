@@ -33,6 +33,7 @@ export default class Schedule extends Component {
           <ScrollView style={styles.viewStyle}>
 
             <Text style={styles.dayStyle}> FRIDAY</Text>
+            <View style={styles.horizontalLineStyle}></View>
             <FlatList
               scrollEnabled={this.state.scrollEnabled}
               data={this.state.friday}
@@ -54,6 +55,7 @@ export default class Schedule extends Component {
             />
 
             <Text style={styles.dayStyle}> SATURDAY</Text>
+            <View style={styles.horizontalLineStyle}></View>
             <FlatList
               scrollEnabled={this.state.scrollEnabled}
               data={this.state.saturday}
@@ -75,6 +77,7 @@ export default class Schedule extends Component {
             />
 
             <Text style={styles.dayStyle}> SUNDAY</Text>
+            <View style={styles.horizontalLineStyle}></View>
             <FlatList
               scrollEnabled={this.state.scrollEnabled}
               data={this.state.sunday}
@@ -159,7 +162,16 @@ const styles = StyleSheet.create({
     height: 40,
     fontSize:25,
     fontWeight: 'bold',
-    marginRight: 5,
+    marginRight: 20,
+    marginLeft: 10,
+  },
+  horizontalLineStyle: {
+    borderBottomColor: '#3F3F3F',
+    borderBottomWidth: 3,
+    marginTop: 2,
+    marginBottom: 5,
+    marginRight: 20,
+    marginLeft: 10,
   },
   button: {
     marginVertical:5

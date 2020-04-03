@@ -19,7 +19,7 @@ export default class Event extends Component {
       //   </View>
       //   <Text style={styles.text}>{this.props.description}</Text>
       // </View>
-      <ScrollView style={styles.viewStyle}>
+      <View style={styles.viewStyle}>
         <LinearGradient colors={['#33ccff', '#33ccff', '#ffff00']} style={styles.linearGradient}>
           <Text style={styles.timeStyle}>{this.props.time}</Text>
         </LinearGradient>
@@ -35,7 +35,7 @@ export default class Event extends Component {
           <Text style={styles.timeStyle}>{this.props.e_time}</Text>
         </LinearGradient>
         <View style={styles.horizontalLineStyle}></View>
-      </ScrollView>
+      </View>
     );
   }
 }
