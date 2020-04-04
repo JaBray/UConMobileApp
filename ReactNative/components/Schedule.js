@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, ScrollView, FlatList, SafeAreaView, StyleSheet, Text } from 'react-native';
+import { View, SectionList, SafeAreaView, StyleSheet, Text } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 
 import Header from './Header';
@@ -16,8 +16,7 @@ export default class Schedule extends Component {
     const saturday = this._getSaturday();
     const sunday = this._getSunday();
     // THE events STATE IS THE ARRAY OF EVENTS THAT IS PASSED TO THE FLATLIST
-    this.state = { events: events };
-    this.setState({ scrollEnabled: false });
+    this.state = { events: events, friday: [], saturday: [], sunday: [] };
   }
 
   // THE FLATLIST IS THE REAL ENGINE OF THIS VIEW. IT DISPLAYS A LIST OF
@@ -30,76 +29,33 @@ export default class Schedule extends Component {
       <View style={styles.container}>
         <SafeAreaView style={styles.container}>
           <Header />
-          <ScrollView style={styles.viewStyle}>
-
-            <Text style={styles.dayStyle}> FRIDAY</Text>
-            <View style={styles.horizontalLineStyle}></View>
-            <FlatList
-              scrollEnabled={this.state.scrollEnabled}
-              data={this.state.friday}
-              // add event properties inside <Event>
+          <SectionList
+              sections={[
+                  {title: 'FRIDAY', data: this.state.friday},
+                  {title: 'SATURDAY', data: this.state.saturday},
+                  {title: 'SUNDAY', data: this.state.sunday}
+                ]}
               renderItem={({item}) =>
-              <Event
-                title={item.title}
-                day={item.day}
-                time={item.time}
-                e_time={item.e_time}
-                s_fname={item.s_fname}
-                s_lname={item.s_lname}
-                i_maxplayers={item.i_maxplayers}
-                e_exper={item.e_exper}
-                e_complex={item.e_complex}
-                s_room={item.s_room}
-              />}
+                <Event
+                    title={item.title}
+                    day={item.day}
+                    time={item.time}
+                    e_time={item.e_time}
+                    s_fname={item.s_fname}
+                    s_lname={item.s_lname}
+                    i_maxplayers={item.i_maxplayers}
+                    e_exper={item.e_exper}
+                    e_complex={item.e_complex}
+                    s_room={item.s_room}
+                  />}
+              renderSectionHeader={({section}) =>
+                <>
+                  <Text style={styles.dayStyle}>{section.title}</Text>
+                  <View style={styles.horizontalLineStyle}></View>
+                </>}
               keyExtractor={(item, index) => index.toString()}
             />
-
-            <Text style={styles.dayStyle}> SATURDAY</Text>
-            <View style={styles.horizontalLineStyle}></View>
-            <FlatList
-              scrollEnabled={this.state.scrollEnabled}
-              data={this.state.saturday}
-              // add event properties inside <Event>
-              renderItem={({item}) =>
-              <Event
-                title={item.title}
-                day={item.day}
-                time={item.time}
-                e_time={item.e_time}
-                s_fname={item.s_fname}
-                s_lname={item.s_lname}
-                i_maxplayers={item.i_maxplayers}
-                e_exper={item.e_exper}
-                e_complex={item.e_complex}
-                s_room={item.s_room}
-              />}
-              keyExtractor={(item, index) => index.toString()}
-            />
-
-            <Text style={styles.dayStyle}> SUNDAY</Text>
-            <View style={styles.horizontalLineStyle}></View>
-            <FlatList
-              scrollEnabled={this.state.scrollEnabled}
-              data={this.state.sunday}
-              // add event properties inside <Event>
-              renderItem={({item}) =>
-              <Event
-                title={item.title}
-                day={item.day}
-                time={item.time}
-                e_time={item.e_time}
-                s_fname={item.s_fname}
-                s_lname={item.s_lname}
-                i_maxplayers={item.i_maxplayers}
-                e_exper={item.e_exper}
-                e_complex={item.e_complex}
-                s_room={item.s_room}
-              />}
-              keyExtractor={(item, index) => index.toString()}
-            />
-
             <MyLargeButton title="Logout" style={styles.button} press={this.props.onLogout}/>
-          </ScrollView>
         </SafeAreaView>
       </View>
     );

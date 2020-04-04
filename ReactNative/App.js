@@ -49,7 +49,7 @@ export default class App extends Component {
         >
           {this.state.authenticated ? (
             this.state.memberList.map(member => (
-               <Drawer.Screen name={member[1]} options={{ title: `Events: ${member[1]}` }} >
+               <Drawer.Screen name={member[0]} key={member[0]} options={{ title: `Events: ${member[1]}` }} >
                  {props => <Schedule {...props} onLogout={this._logout} memberId={member[0]} />}
                </Drawer.Screen>
              ))
