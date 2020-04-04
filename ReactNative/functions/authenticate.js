@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-community/async-storage';
-import { RSA } from 'react-native-rsa-native';
+import { RSAKeychain  } from 'react-native-rsa-native';
 import { getSchedule } from '../functions/get_schedule.js';
 
 // ACCEPTS USERNAME AND PASSWORD AND RETURNS auth_response.json
@@ -62,16 +62,16 @@ async function authResponseValid(response, username, password) {
   try {
     const responseObject = await response.json();
     const hash = responseObject.hash;
-    const publicKey = await AsyncStorage.getItem('public');
 
     // IOS DOES NOT LIKE THE RSA LIBRARY
-    // const encryptedUsername = await RSA.encrypt(username, publicKey);
-    // const encryptedPassword = await RSA.encrypt(password, publicKey);
-    // await AsyncStorage.setItem('username', encryptedUsername.toString());
-    // await AsyncStorage.setItem('password', encryptedPassword.toString());
+    const keyTag = await AsyncStorage.getItem('keyTag');
+    const encryptedUsername = await RSAKeychain.encrypt(username, keyTag);
+    const encryptedPassword = await RSAKeychain.encrypt(password, keyTag);
+    await AsyncStorage.setItem('username', encryptedUsername.toString());
+    await AsyncStorage.setItem('password', encryptedPassword.toString());
 
-    await AsyncStorage.setItem('username', username);
-    await AsyncStorage.setItem('password', password);
+    //await AsyncStorage.setItem('username', username);
+    //await AsyncStorage.setItem('password', password);
 
     await AsyncStorage.setItem('token', hash.toString());
     return responseObject;

@@ -34,7 +34,8 @@ You shouldn't need to recreate the application from scratch but, just to record 
 1. npm install react-native-rsa-native --save
 1. npm install @react-navigation/native
 1. npm install react-native-reanimated react-native-gesture-handler react-native-screens react-native-safe-area-context @react-native-community/masked-view
-1. npm install --save-dev jest-fetch-mock
+1. npm install jest-fetch-mock --save-dev 
+1. npm install react-native-linear-gradient
 1. Edit the /android/app/build.gradle file by:
    * Add *multiDexEnabled true* to the *android/defaultConfig* section.
    * Add the following two lines to the *dependencies* section:
@@ -56,6 +57,9 @@ I installed *eslint* and *typescript* simply to remove warnings about missing de
 
 #### RSA Encryption
 react-native-rsa-native v1.1.4 is a library for encrypting strings using a public/private key. At the moment, the public/private key is in our code, but I'm hoping to find a way to move it out, perhaps using a TLS certificate. We may be able to store the public key on the device and send credentials encrypted, then decrypt on the backend. This would require finding out how to decrypt in PHP. More information about this library is here **https://github.com/amitaymolko/react-native-rsa-native**
+
+### Linear Gradient
+react-native-linear-gradient v2.5.6 is a library for creating views that display a linear color gradient. More information is available here **https://github.com/react-native-community/react-native-linear-gradient**
 
 ### Testing
 Jest is the recommended testing solution for React Native and Jest modules are included by default when you start a React Native app.

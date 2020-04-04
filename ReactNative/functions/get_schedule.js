@@ -38,8 +38,12 @@ export async function getSchedule(firstAttempt = true) {
         if (firstAttempt) {
 
           // TODO: DECRYPT CREDENTIALS BEFORE SENDING
-          const username = await AsyncStorage.getItem('username');
-          const password = await AsyncStorage.getItem('password');
+          const encryptedUsername = await AsyncStorage.getItem('username');
+          const encryptedPassword = await AsyncStorage.getItem('password');
+          const keyTag = await AsyncStorage.getItem('keyTag');
+          const username = await RSAKeychain.decrypt(encryptedUsername, keyTag);
+          const password = await RSAKeychain.decrypt(encryptedPassword, keyTag);
+          
           sendCredentials(username, password);
           return getSchedule(false);
         } else {

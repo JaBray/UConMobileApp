@@ -77,7 +77,7 @@ export default class App extends Component {
   _logout = async () => {
     const keys = await AsyncStorage.getAllKeys();
     const filteredKeys = keys.filter(currentValue => {
-      return currentValue !== 'public' && currentValue !== 'private';
+      return currentValue !== 'keyTag';
     });
 
     await AsyncStorage.multiRemove(filteredKeys);
@@ -90,8 +90,8 @@ export default class App extends Component {
   _setState = () => {
     AsyncStorage.getAllKeys()
       .then(async (keys) => {
-        if (!keys.includes('public') || !keys.includes('private')) {
-          await this.storeKeys();
+        if (!keys.includes('keyTag')) {
+          await storeKeys();
         }
 
         return (keys.includes('username') && keys.includes('password') && keys.includes('token'));
