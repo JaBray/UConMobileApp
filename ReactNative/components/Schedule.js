@@ -28,7 +28,7 @@ export default class Schedule extends Component {
     return (
       <View style={styles.container}>
         <SafeAreaView style={styles.container}>
-          <Header />
+          <Header title="Schedule"/>
           <SectionList
               sections={[
                   {title: 'FRIDAY', data: this.state.friday},

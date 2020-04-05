@@ -1,28 +1,40 @@
 import React, { Component } from 'react';
-import { View, Image, StyleSheet } from 'react-native';
+import { View, Text, Image, StyleSheet } from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
 
 // THE IMAGE THAT IS DISPLAED BY ALL PAGE COMPONENTS
 export default class Header extends Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Image source={require('../images/logo.png')} style={styles.logo} />
-      </View>
+      <LinearGradient start={{x: 0, y: 0}} end={{x: 1, y: 0}} colors={['#79B8F7', '#71C4F2', '#04AAD8', '#1974A8']} style={styles.container}>
+        <View >
+          <Image source={require('../images/logo.png')} style={styles.logo} />
+          <Text style={styles.header}>{this.props.title}</Text>
+        </View>
+      </LinearGradient>
     );
   }
 }
 
 const styles = StyleSheet.create({
   container:{
-    height: 150,
-    backgroundColor: 'dodgerblue',
-    marginBottom: 25
+    //height: 160,
+    marginBottom: 25,
   },
   logo: {
     width: 350,
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 25,
+    marginTop: 20,
     resizeMode: 'contain'
-  }
+  },
+  header: {
+    textAlign: 'center',
+    marginTop: 5,
+    color: '#ffffff',
+    fontSize: 50,
+    textShadowColor:'#585858',
+    textShadowOffset:{width: 5, height: 5},
+    textShadowRadius:10,
+  },
 });

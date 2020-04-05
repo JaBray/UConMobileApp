@@ -33,7 +33,7 @@ export default class Login extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Header />
+        <Header title="Login"/>
         <MyTextBox placeholder='Username' secure={false} text={this.state.username} onchange={this._setUsername} />
         <MyTextBox placeholder='Password' secure={true} text={this.state.password} onchange={this._setPassword} />
         <MyLargeButton title="Login" press={this._sendCredentials} disabled={this.state.authenticating}/>
