@@ -55,7 +55,6 @@ export default class Schedule extends Component {
                 </>}
               keyExtractor={(item, index) => index.toString()}
             />
-            <MyLargeButton title="Logout" style={styles.button} press={this.props.onLogout}/>
         </SafeAreaView>
       </View>
     );

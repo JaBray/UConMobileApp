@@ -9,9 +9,9 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { storeKeys } from './functions/store_keys.js';
 
 // CUSTOM COMPONENTS
-import Login from './components/Login';
+import SignIn from './components/SignIn';
 import Schedule from './components/Schedule';
-import MyDrawerContent from './components/MyDrawerContent'
+import { AuthenticatedDrawerContent, UnauthenticatedDrawerContent } from './components/MyDrawerContent'
 const Drawer = createDrawerNavigator();
 
 export default class App extends Component {
@@ -38,7 +38,11 @@ export default class App extends Component {
     return (
       <NavigationContainer>
         <Drawer.Navigator
-          drawerContent={props => <MyDrawerContent {...props} /> }
+          drawerContent={props =>
+            this.state.authenticated ?
+              <AuthenticatedDrawerContent {...props} logout={this._logout} /> :
+              <UnauthenticatedDrawerContent {...props} />
+            }
           drawerContentOptions={{
             labelStyle:  styles.labelStyle ,
             itemStyle: styles.itemStyle
@@ -54,8 +58,8 @@ export default class App extends Component {
                </Drawer.Screen>
              ))
           ) : (
-              <Drawer.Screen name="Login" options={{ title: 'Sign in' }} >
-                {props => <Login {...props} onLogin={this._login} />}
+              <Drawer.Screen name="Login" options={{ title: 'Sign In' }} >
+                {props => <SignIn {...props} onLogin={this._login} />}
               </Drawer.Screen>
             )
           }

@@ -15,7 +15,7 @@ import Header from './Header';
 // THIS IS A FULL PAGE COMPONENT WHICH DISPLAYS THE LOGIN SCREEN
 // THE USERNAME AND PASSWORD STATE VARIABLES ARE CHANGED WHEN THE TEXT BOXES
 // ARE UPDATED.
-export default class Login extends Component {
+export default class SignIn extends Component {
   constructor(props) {
     super(props);
 
@@ -33,10 +33,10 @@ export default class Login extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Header title="Login"/>
+        <Header title="Sign In"/>
         <MyTextBox placeholder='Username' secure={false} text={this.state.username} onchange={this._setUsername} />
         <MyTextBox placeholder='Password' secure={true} text={this.state.password} onchange={this._setPassword} />
-        <MyLargeButton title="Login" press={this._sendCredentials} disabled={this.state.authenticating}/>
+        <MyLargeButton title="Sign In" press={this._sendCredentials} disabled={this.state.authenticating}/>
         <ActivityIndicator size="large" color="#0000ff" animating={this.state.authenticating} />
         <Text style={styles.authnResponse}>{this.state.auth_response}</Text>
       </View>
