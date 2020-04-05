@@ -13,7 +13,7 @@ export default class Event extends Component {
   render() {
     return (
       <View style={styles.viewStyle}>
-        <LinearGradient colors={['#33ccff', '#33ccff', '#ffff00']} style={styles.linearGradient}>
+        <LinearGradient start={{x: 0, y: 0}} end={{x: 1, y: 0}} colors={['#79B8F7', '#71C4F2', '#04AAD8', '#1974A8']} style={styles.linearGradient}>
           <Text style={styles.timeStyle}>{this.props.time}</Text>
         </LinearGradient>
         <View style={styles.horizontalLineStyle}></View>
@@ -24,7 +24,7 @@ export default class Event extends Component {
           {"\n"}{this.props.day} {this.props.time.toLowerCase()}-{this.props.e_time.toLowerCase()},
           {" "}{this.props.s_room}
         </Text>
-        <LinearGradient colors={['#33ccff', '#33ccff', '#ffff00']} style={styles.linearGradient}>
+        <LinearGradient start={{x: 0, y: 0}} end={{x: 1, y: 0}} colors={['#79B8F7', '#71C4F2', '#04AAD8', '#1974A8']} style={styles.linearGradient}>
           <Text style={styles.timeStyle}>{this.props.e_time}</Text>
         </LinearGradient>
         <View style={styles.horizontalLineStyle}></View>
