@@ -9,9 +9,12 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { storeKeys } from './functions/store_keys.js';
 
 // CUSTOM COMPONENTS
-import SignIn from './components/SignIn';
+import Login from './components/Login';
 import Schedule from './components/Schedule';
-import { AuthenticatedDrawerContent, UnauthenticatedDrawerContent } from './components/MyDrawerContent'
+import ConductPolicy from './components/ConductPolicy';
+import ContactInfo from './components/ContactInfo';
+import ReportConductViolation from './components/ReportConductViolation';
+import MyDrawerContent from './components/MyDrawerContent'
 const Drawer = createDrawerNavigator();
 
 export default class App extends Component {
@@ -38,11 +41,7 @@ export default class App extends Component {
     return (
       <NavigationContainer>
         <Drawer.Navigator
-          drawerContent={props =>
-            this.state.authenticated ?
-              <AuthenticatedDrawerContent {...props} logout={this._logout} /> :
-              <UnauthenticatedDrawerContent {...props} />
-            }
+          drawerContent={props => <MyDrawerContent {...props} /> }
           drawerContentOptions={{
             labelStyle:  styles.labelStyle ,
             itemStyle: styles.itemStyle
@@ -58,11 +57,14 @@ export default class App extends Component {
                </Drawer.Screen>
              ))
           ) : (
-              <Drawer.Screen name="Login" options={{ title: 'Sign In' }} >
-                {props => <SignIn {...props} onLogin={this._login} />}
+              <Drawer.Screen name="Login" options={{ title: 'Sign in' }} >
+                {props => <Login {...props} onLogin={this._login} />}
               </Drawer.Screen>
             )
           }
+          <Drawer.Screen name="Conduct Policy" component={ConductPolicy} />
+          <Drawer.Screen name="Contact Info" component={ContactInfo} />
+          <Drawer.Screen name="Report Conduct Violation" component={ReportConductViolation} />
         </Drawer.Navigator>
       </NavigationContainer>
     );
@@ -81,7 +83,7 @@ export default class App extends Component {
   _logout = async () => {
     const keys = await AsyncStorage.getAllKeys();
     const filteredKeys = keys.filter(currentValue => {
-      return currentValue !== 'keyTag';
+      return currentValue !== 'public' && currentValue !== 'private';
     });
 
     await AsyncStorage.multiRemove(filteredKeys);
@@ -94,8 +96,8 @@ export default class App extends Component {
   _setState = () => {
     AsyncStorage.getAllKeys()
       .then(async (keys) => {
-        if (!keys.includes('keyTag')) {
-          await storeKeys();
+        if (!keys.includes('public') || !keys.includes('private')) {
+          await this.storeKeys();
         }
 
         return (keys.includes('username') && keys.includes('password') && keys.includes('token'));
