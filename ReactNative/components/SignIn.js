@@ -83,6 +83,7 @@ export default class SignIn extends Component {
                 .then(events => JSON.parse(events));
             });
 
+
           // PASS MEMBERS AND EVENTS TO APP.JS TO DISPLAY A BUTTON FOR
           // EACH MEMBERS AND THE EVENTS FOR THE FIRST MEMBER
           this.props.onLogin(members, events);

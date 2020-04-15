@@ -10,13 +10,12 @@ import MyLargeButton from './MyLargeButton';
 export default class Schedule extends Component {
   constructor(props) {
     super(props);
-
-    const events = this._getSchedule();
-    const friday = this._getFriday();
-    const saturday = this._getSaturday();
-    const sunday = this._getSunday();
+    this._parseSchedule();
+    //const friday = this._getFriday();
+    //const saturday = this._getSaturday();
+    //const sunday = this._getSunday();
     // THE events STATE IS THE ARRAY OF EVENTS THAT IS PASSED TO THE FLATLIST
-    this.state = { events: events, friday: [], saturday: [], sunday: [] };
+    this.state = { friday: [], saturday: [], sunday: [] };
   }
 
   // THE FLATLIST IS THE REAL ENGINE OF THIS VIEW. IT DISPLAYS A LIST OF
@@ -60,44 +59,38 @@ export default class Schedule extends Component {
     );
   }
 
-  // PULL THE REQUESTED ARRAY OF EVENTS FROM STORAGE AND UPDATE THE COMPONENT STATE
-  _getSchedule = async () => {
-    const id = this.props.memberId;
-    const events = JSON.parse(await AsyncStorage.getItem(id));
-    this.setState({events: events});
-  }
-  //modified _getSchedule, deletes saturday and sunday events leaving only friday
-  _getFriday = async () => {
-    const id = this.props.memberId;
-    const friday = JSON.parse(await AsyncStorage.getItem(id));
-    for (var i = friday.length - 1; i >= 0; --i) {
-      if (friday[i].day == "Saturday" || friday[i].day == "Sunday") {
-          friday.splice(i,1);
+  _parseSchedule = async() => {
+    const memberId = this.props.memberId;
+    const eventsArray = await AsyncStorage.getItem(memberId)
+      .then(events => {
+        return JSON.parse(events);
+      })
+      .catch(error => {
+        return [];
+      });
+
+      if (!Array.isArray(eventsArray)) {
+        return;
       }
-    }
-    this.setState({friday: friday});
-  }
-  //saturday events
-  _getSaturday = async () => {
-    const id = this.props.memberId;
-    const saturday = JSON.parse(await AsyncStorage.getItem(id));
-    for (var i = saturday.length - 1; i >= 0; --i) {
-      if (saturday[i].day == "Friday" || saturday[i].day == "Sunday") {
-          saturday.splice(i,1);
+
+      let friday = [];
+      let saturday = [];
+      let sunday = [];
+      for (const myEvent of eventsArray) {
+        switch (myEvent.day) {
+          case 'Friday':
+            friday.push(myEvent);
+            break;
+          case 'Saturday':
+            saturday.push(myEvent);
+            break;
+          case 'Sunday':
+            sunday.push(myEvent);
+            break;
+        }
       }
-    }
-    this.setState({saturday: saturday});
-  }
-  //sunday events
-  _getSunday = async () => {
-    const id = this.props.memberId;
-    const sunday = JSON.parse(await AsyncStorage.getItem(id));
-    for (var i = sunday.length - 1; i >= 0; --i) {
-      if (sunday[i].day == "Saturday" || sunday[i].day == "Friday") {
-          sunday.splice(i,1);
-      }
-    }
-    this.setState({sunday: sunday});
+
+      this.setState({friday: friday, saturday: saturday, sunday: sunday});
   }
 }
 

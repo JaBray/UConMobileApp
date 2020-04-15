@@ -9,6 +9,8 @@ export async function getSchedule(firstAttempt = true) {
 
     // FETCH PARAMETERS
     const url = 'https://myfakeapi.com/api/cars/';
+    const player_ids_array = getArrayOfPlayerIds();
+    const body = JSON.stringify(player_ids_array);
 
     // WRAP FETCH IN A TIMEOUT (5 SECONDS)
     new Promise(function(resolve, reject) {
@@ -16,10 +18,11 @@ export async function getSchedule(firstAttempt = true) {
 
       // FETCH CALL
       fetch(url, {
-        method: 'GET',
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`}
+          'Authorization': `Bearer ${token}`},
+        body: body
       })
       .then(response => {
         clearTimeout(timeout);
@@ -36,22 +39,22 @@ export async function getSchedule(firstAttempt = true) {
         return parseSchedule(response);
       } else if (response.status === 401) {
         if (firstAttempt) {
-
-          // TODO: DECRYPT CREDENTIALS BEFORE SENDING
           const encryptedUsername = await AsyncStorage.getItem('username');
           const encryptedPassword = await AsyncStorage.getItem('password');
           const keyTag = await AsyncStorage.getItem('keyTag');
           const username = await RSAKeychain.decrypt(encryptedUsername, keyTag);
           const password = await RSAKeychain.decrypt(encryptedPassword, keyTag);
-          
+
           sendCredentials(username, password);
           return getSchedule(false);
-        } else {
+        }
+        else {
           const keys = ['username', 'password', 'token', 'members'];
           await AsyncStorage.multiRemove(keys);
           return getErrorMessage('User is no longer authenticated.');
         }
-      } else {
+      }
+      else {
         // COULD BE A 404 OR 500 OR OTHER
           return getErrorMessage(`Error Code: ${response.status}. An error occurred while retrieving your schedule.
             Please contact your administrator or try again later.`);
@@ -62,14 +65,24 @@ export async function getSchedule(firstAttempt = true) {
     });
 }
 
+// REQUIRED AS PART OF THE SCHEDULE REQUEST
+// EACH PLAYER IS AN ARRAY OF [ID, NAME]
+async function getArrayOfPlayerIds() {
+  const player_ids_array = await AsyncStorage.getItem('members')
+  .then(players_string => {
+    return JSON.parse(players_string)
+      .map(player => player[0]);
+  });
+  return player_ids_array;
+}
+
 
 // TAKES THE SUCCESSFULL FETCH RESPONSE AND STORES THE KEY/VALUE PAIRS
 async function parseSchedule(response) {
   try {
 
     // FOR DEVELOPMENT ONLY
-    responseObject = mockSchedule();
-
+    const responseObject = mockSchedule();
     //responseObject = await response.json();
     for (const member of responseObject.players) {
       const events_string = JSON.stringify(member.events);

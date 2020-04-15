@@ -8,6 +8,9 @@ export async function authenticate(username, password) {
   // REMOVE ANY STORED CREDENTIALS AS WE'LL REPLACE WITH NEW CREDENTIALS IF VALID.
   const keys = ['username', 'password', 'token'];
   await AsyncStorage.multiRemove(keys)
+    .catch(error => {
+      // TAKE NO ACTION. KEYS WILL BE REPLACED.
+    });
 
   // FETCH PARAMETERS
   const url = 'https://ucon-gaming.org/reg/api/services.php?action=login';
@@ -97,8 +100,13 @@ async function storeMemberNames(members) {
     ['2', 'Jane Doe'],
     ['151', 'Brother Bob']
   ];
-  const players_string = JSON.stringify(membersArray);
-  await AsyncStorage.setItem('members', players_string);
+  try {
+    const players_string = JSON.stringify(membersArray);
+    await AsyncStorage.setItem('members', players_string);
+  } catch (error) {
+    throw Error(error);
+  }
+
 }
 
 function getErrorMessage(message) {

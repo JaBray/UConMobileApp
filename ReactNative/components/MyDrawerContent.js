@@ -18,11 +18,11 @@ export function AuthenticatedDrawerContent({progress, ...rest}) {
   return (
     <DrawerContentScrollView {...rest}>
       <Animated.View style={{ transform: [{ translateX }] }}>
+        <DrawerItem label="Events" labelStyle={rest.labelStyle} />
         <DrawerItemList {...rest} />
         <DrawerItem label="Look Up Events" labelStyle={rest.labelStyle} onPress={() => alert('Not implemented') } />
         <DrawerItem label="Con Schedule" labelStyle={rest.labelStyle} onPress={() => alert('Not implemented') } />
         <DrawerItem label="My Information" labelStyle={rest.labelStyle} onPress={() => alert('Not implemented') } />
-        <DrawerItem label="Contact Info" labelStyle={rest.labelStyle} onPress={() => alert('Not implemented') } />
         <DrawerItem label="Report Conduct Violations" labelStyle={rest.labelStyle} onPress={() => alert('Not implemented') } />
         <DrawerItem label="Sign Out" labelStyle={rest.labelStyle} onPress={rest.logout} />
       </Animated.View>
@@ -43,7 +43,6 @@ export function UnauthenticatedDrawerContent({progress, ...rest}) {
         <DrawerItemList {...rest} />
         <DrawerItem label="Look Up Events" labelStyle={rest.labelStyle} onPress={() => alert('Not implemented') } />
         <DrawerItem label="Con Schedule" labelStyle={rest.labelStyle} onPress={() => alert('Not implemented') } />
-        <DrawerItem label="Contact Info" labelStyle={rest.labelStyle} onPress={() => alert('Not implemented') } />
       </Animated.View>
     </DrawerContentScrollView>
   );

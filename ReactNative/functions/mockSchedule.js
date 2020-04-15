@@ -1,3 +1,16 @@
+/* I'm assuming the php team can return the follwing properties:
+title: for the game title
+day: for the day of the game
+time: for the start time of the game
+e_time: for the end time of the game
+s_fname & s_lname: for the GM name
+i_maxplayers: for the max number of seats
+e_exper: for the experience required in the game
+e_complex: for the complexity of the game
+e_day: for the day of the game
+s_room: for the room information
+*/
+
 export function mockSchedule() {
   return {
     "players": [
@@ -6,18 +19,6 @@ export function mockSchedule() {
         "name": "Jane Doe",
         "events": [
           {
-            /* I'm assuming the php team can return the follwing properties:
-            title: for the game title
-            day: for the day of the game
-            time: for the start time of the game
-            e_time: for the end time of the game
-            s_fname & s_lname: for the GM name
-            i_maxplayers: for the max number of seats
-            e_exper: for the experience required in the game
-            e_complex: for the complexity of the game
-            e_day: for the day of the game
-            s_room: for the room information
-            */
             "title": "Empire Builder/Euorails",
             "id": 5,
             "day": "Friday",

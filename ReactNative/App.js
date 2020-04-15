@@ -56,7 +56,7 @@ export default class App extends Component {
         >
           {this.state.authenticated ? (
             this.state.memberList.map(member => (
-               <Drawer.Screen name={member[0]} key={member[0]} options={{ title: `Events: ${member[1]}` }} >
+               <Drawer.Screen name={member[0]} key={member[0]} options={{ title: `  -  ${member[1]}` }} >
                  {props => <Schedule {...props} onLogout={this._logout} memberId={member[0]} />}
                </Drawer.Screen>
              ))
@@ -68,7 +68,6 @@ export default class App extends Component {
           }
           <Drawer.Screen name="Conduct Policy" component={ConductPolicy} />
           <Drawer.Screen name="Contact Info" component={ContactInfo} />
-          <Drawer.Screen name="Report Conduct Violation" component={ReportConductViolation} />
         </Drawer.Navigator>
       </NavigationContainer>
     );
