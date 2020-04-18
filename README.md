@@ -58,7 +58,7 @@ I installed *eslint* and *typescript* simply to remove warnings about missing de
 #### RSA Encryption
 react-native-rsa-native v1.1.4 is a library for encrypting strings using a public/private key. At the moment, the public/private key is in our code, but I'm hoping to find a way to move it out, perhaps using a TLS certificate. We may be able to store the public key on the device and send credentials encrypted, then decrypt on the backend. This would require finding out how to decrypt in PHP. More information about this library is here **https://github.com/amitaymolko/react-native-rsa-native**
 
-### Linear Gradient
+#### Linear Gradient
 react-native-linear-gradient v2.5.6 is a library for creating views that display a linear color gradient. More information is available here **https://github.com/react-native-community/react-native-linear-gradient**
 
 ### Testing
