@@ -66,15 +66,11 @@ async function authResponseValid(response, username, password) {
     const responseObject = await response.json();
     const hash = responseObject.hash;
 
-    // IOS DOES NOT LIKE THE RSA LIBRARY
     const keyTag = await AsyncStorage.getItem('keyTag');
     const encryptedUsername = await RSAKeychain.encrypt(username, keyTag);
     const encryptedPassword = await RSAKeychain.encrypt(password, keyTag);
     await AsyncStorage.setItem('username', encryptedUsername.toString());
     await AsyncStorage.setItem('password', encryptedPassword.toString());
-
-    //await AsyncStorage.setItem('username', username);
-    //await AsyncStorage.setItem('password', password);
 
     await AsyncStorage.setItem('token', hash.toString());
     return responseObject;

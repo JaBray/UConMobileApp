@@ -21,7 +21,7 @@ export default class Event extends Component {
         <Text style={styles.gameDescriptiontStyle}>
           GM: {this.props.s_fname} {this.props.s_lname}, {this.props.i_maxplayers}
           {" "}seats, {this.props.e_exper} {this.props.e_complex}
-          {"\n"}{this.props.day} {this.props.time.toLowerCase()}-{this.props.e_time.toLowerCase()},
+          {"\n"}{this.props.day} {this.props.time ? this.props.time.toLowerCase() : ''}-{this.props.e_time ? this.props.e_time.toLowerCase() : ''},
           {" "}{this.props.s_room}
         </Text>
         <LinearGradient start={{x: 0, y: 0}} end={{x: 1, y: 0}} colors={['#79B8F7', '#71C4F2', '#04AAD8', '#1974A8']} style={styles.linearGradient}>

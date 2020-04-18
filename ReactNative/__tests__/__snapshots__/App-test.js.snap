@@ -4,33 +4,149 @@ exports[`Event renders correctly 1`] = `
 <View
   style={
     Object {
-      "backgroundColor": "lightblue",
-      "borderColor": "darkgreen",
-      "borderRadius": 5,
-      "borderWidth": 2,
-      "height": 95,
-      "marginBottom": 15,
-      "marginLeft": 20,
-      "marginRight": 20,
-      "padding": 5,
+      "marginHorizontal": 10,
+      "marginTop": 20,
     }
   }
 >
-  <Text
+  <BVLinearGradient
+    colors={
+      Array [
+        4286167287,
+        4285646066,
+        4278495960,
+        4279858344,
+      ]
+    }
+    endPoint={
+      Object {
+        "x": 1,
+        "y": 0,
+      }
+    }
+    locations={null}
+    startPoint={
+      Object {
+        "x": 0,
+        "y": 0,
+      }
+    }
     style={
       Object {
-        "fontSize": 16,
-        "marginBottom": 5,
+        "borderRadius": 5,
+        "flex": 1,
+        "marginRight": 10,
+        "paddingLeft": 15,
+        "paddingRight": 15,
       }
     }
   >
-    DESCRIPTION
-  </Text>
+    <Text
+      style={
+        Object {
+          "color": "#3F3F3F",
+          "fontSize": 15,
+          "fontWeight": "bold",
+        }
+      }
+    />
+  </BVLinearGradient>
+  <View
+    style={
+      Object {
+        "borderBottomColor": "#3F3F3F",
+        "borderBottomWidth": 3,
+        "marginBottom": 10,
+        "marginRight": 10,
+        "marginTop": 5,
+      }
+    }
+  />
   <Text
     style={
       Object {
-        "fontSize": 16,
-        "marginBottom": 5,
+        "color": "#3F3F3F",
+        "fontSize": 20,
+        "fontWeight": "bold",
+      }
+    }
+  />
+  <Text
+    style={
+      Object {
+        "color": "#3F3F3F",
+        "fontSize": 15,
+        "fontWeight": "bold",
+        "marginBottom": 10,
+        "marginTop": 5,
+      }
+    }
+  >
+    GM: 
+     
+    , 
+     
+    seats, 
+     
+    
+
+     
+    
+    -
+    
+    ,
+     
+  </Text>
+  <BVLinearGradient
+    colors={
+      Array [
+        4286167287,
+        4285646066,
+        4278495960,
+        4279858344,
+      ]
+    }
+    endPoint={
+      Object {
+        "x": 1,
+        "y": 0,
+      }
+    }
+    locations={null}
+    startPoint={
+      Object {
+        "x": 0,
+        "y": 0,
+      }
+    }
+    style={
+      Object {
+        "borderRadius": 5,
+        "flex": 1,
+        "marginRight": 10,
+        "paddingLeft": 15,
+        "paddingRight": 15,
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "color": "#3F3F3F",
+          "fontSize": 15,
+          "fontWeight": "bold",
+        }
+      }
+    />
+  </BVLinearGradient>
+  <View
+    style={
+      Object {
+        "borderBottomColor": "#3F3F3F",
+        "borderBottomWidth": 3,
+        "marginBottom": 10,
+        "marginRight": 10,
+        "marginTop": 5,
       }
     }
   />
@@ -38,32 +154,69 @@ exports[`Event renders correctly 1`] = `
 `;
 
 exports[`Header renders correctly 1`] = `
-<View
+<BVLinearGradient
+  colors={
+    Array [
+      4286167287,
+      4285646066,
+      4278495960,
+      4279858344,
+    ]
+  }
+  endPoint={
+    Object {
+      "x": 1,
+      "y": 0,
+    }
+  }
+  locations={null}
+  startPoint={
+    Object {
+      "x": 0,
+      "y": 0,
+    }
+  }
   style={
     Object {
-      "backgroundColor": "dodgerblue",
-      "height": 150,
       "marginBottom": 25,
     }
   }
 >
-  <Image
-    source={
-      Object {
-        "testUri": "../../../images/logo.png",
+  <View>
+    <Image
+      source={
+        Object {
+          "testUri": "../../../images/logo.png",
+        }
       }
-    }
-    style={
-      Object {
-        "alignItems": "center",
-        "justifyContent": "center",
-        "marginTop": 25,
-        "resizeMode": "contain",
-        "width": 350,
+      style={
+        Object {
+          "alignItems": "center",
+          "justifyContent": "center",
+          "marginTop": 20,
+          "resizeMode": "contain",
+          "width": 350,
+        }
       }
-    }
-  />
-</View>
+    />
+    <Text
+      style={
+        Object {
+          "color": "#ffffff",
+          "fontSize": 50,
+          "marginTop": 5,
+          "textAlign": "center",
+          "textShadowColor": "#585858",
+          "textShadowOffset": Object {
+            "height": 5,
+            "width": 5,
+          },
+          "textShadowRadius": 10,
+        }
+      }
+    />
+  </View>
+</BVLinearGradient>
 `;
 
 exports[`MyLargeButton renders correctly 1`] = `
@@ -203,129 +356,249 @@ exports[`Schedule renders correctly 1`] = `
       }
     }
   >
-    <View
+    <BVLinearGradient
+      colors={
+        Array [
+          4286167287,
+          4285646066,
+          4278495960,
+          4279858344,
+        ]
+      }
+      endPoint={
+        Object {
+          "x": 1,
+          "y": 0,
+        }
+      }
+      locations={null}
+      startPoint={
+        Object {
+          "x": 0,
+          "y": 0,
+        }
+      }
       style={
         Object {
-          "backgroundColor": "dodgerblue",
-          "height": 150,
           "marginBottom": 25,
         }
       }
     >
-      <Image
-        source={
-          Object {
-            "testUri": "../../../images/logo.png",
+      <View>
+        <Image
+          source={
+            Object {
+              "testUri": "../../../images/logo.png",
+            }
           }
-        }
-        style={
-          Object {
-            "alignItems": "center",
-            "justifyContent": "center",
-            "marginTop": 25,
-            "resizeMode": "contain",
-            "width": 350,
+          style={
+            Object {
+              "alignItems": "center",
+              "justifyContent": "center",
+              "marginTop": 20,
+              "resizeMode": "contain",
+              "width": 350,
+            }
           }
-        }
-      />
-    </View>
-    <RCTScrollView
-      data={Array []}
-      disableVirtualization={false}
-      getItem={[Function]}
-      getItemCount={[Function]}
-      horizontal={false}
-      initialNumToRender={10}
-      keyExtractor={[Function]}
-      maxToRenderPerBatch={10}
-      numColumns={1}
-      onContentSizeChange={[Function]}
-      onEndReachedThreshold={2}
-      onLayout={[Function]}
-      onMomentumScrollEnd={[Function]}
-      onScroll={[Function]}
-      onScrollBeginDrag={[Function]}
-      onScrollEndDrag={[Function]}
-      removeClippedSubviews={false}
-      renderItem={[Function]}
-      scrollEventThrottle={50}
-      stickyHeaderIndices={Array []}
-      updateCellsBatchingPeriod={50}
-      viewabilityConfigCallbackPairs={Array []}
-      windowSize={21}
-    >
-      <View />
-    </RCTScrollView>
-    <RCTScrollView
-      data={Array []}
-      disableVirtualization={false}
-      getItem={[Function]}
-      getItemCount={[Function]}
-      horizontal={false}
-      initialNumToRender={10}
-      keyExtractor={[Function]}
-      maxToRenderPerBatch={10}
-      numColumns={1}
-      onContentSizeChange={[Function]}
-      onEndReachedThreshold={2}
-      onLayout={[Function]}
-      onMomentumScrollEnd={[Function]}
-      onScroll={[Function]}
-      onScrollBeginDrag={[Function]}
-      onScrollEndDrag={[Function]}
-      removeClippedSubviews={false}
-      renderItem={[Function]}
-      scrollEventThrottle={50}
-      stickyHeaderIndices={Array []}
-      updateCellsBatchingPeriod={50}
-      viewabilityConfigCallbackPairs={Array []}
-      windowSize={21}
-    >
-      <View />
-    </RCTScrollView>
-    <View
-      style={
-        Object {
-          "flexDirection": "row",
-          "justifyContent": "center",
-          "marginBottom": 20,
-        }
-      }
-    >
-      <View
-        accessible={true}
-        focusable={true}
-        isTVSelectable={true}
-        onClick={[Function]}
-        onResponderGrant={[Function]}
-        onResponderMove={[Function]}
-        onResponderRelease={[Function]}
-        onResponderTerminate={[Function]}
-        onResponderTerminationRequest={[Function]}
-        onStartShouldSetResponder={[Function]}
-        style={
-          Object {
-            "alignItems": "center",
-            "backgroundColor": "red",
-            "borderRadius": 50,
-            "opacity": 1,
-            "padding": 12,
-            "width": 200,
-          }
-        }
-      >
+        />
         <Text
           style={
             Object {
-              "color": "white",
-              "fontSize": 16,
+              "color": "#ffffff",
+              "fontSize": 50,
+              "marginTop": 5,
+              "textAlign": "center",
+              "textShadowColor": "#585858",
+              "textShadowOffset": Object {
+                "height": 5,
+                "width": 5,
+              },
+              "textShadowRadius": 10,
             }
           }
         >
-          Logout
+          Schedule
         </Text>
       </View>
-    </View>
+    </BVLinearGradient>
+    <RCTScrollView
+      data={
+        Array [
+          Object {
+            "data": Array [],
+            "title": "FRIDAY",
+          },
+          Object {
+            "data": Array [],
+            "title": "SATURDAY",
+          },
+          Object {
+            "data": Array [],
+            "title": "SUNDAY",
+          },
+        ]
+      }
+      disableVirtualization={false}
+      getItem={[Function]}
+      getItemCount={[Function]}
+      horizontal={false}
+      initialNumToRender={10}
+      keyExtractor={[Function]}
+      maxToRenderPerBatch={10}
+      onContentSizeChange={[Function]}
+      onEndReachedThreshold={2}
+      onLayout={[Function]}
+      onMomentumScrollEnd={[Function]}
+      onScroll={[Function]}
+      onScrollBeginDrag={[Function]}
+      onScrollEndDrag={[Function]}
+      renderItem={[Function]}
+      renderSectionHeader={[Function]}
+      scrollEventThrottle={50}
+      sections={
+        Array [
+          Object {
+            "data": Array [],
+            "title": "FRIDAY",
+          },
+          Object {
+            "data": Array [],
+            "title": "SATURDAY",
+          },
+          Object {
+            "data": Array [],
+            "title": "SUNDAY",
+          },
+        ]
+      }
+      stickyHeaderIndices={
+        Array [
+          0,
+          2,
+          4,
+        ]
+      }
+      stickySectionHeadersEnabled={true}
+      updateCellsBatchingPeriod={50}
+      windowSize={21}
+    >
+      <View>
+        <View
+          onLayout={[Function]}
+          style={null}
+        >
+          <Text
+            style={
+              Object {
+                "backgroundColor": "#3F3F3F",
+                "color": "white",
+                "fontSize": 25,
+                "fontWeight": "bold",
+                "height": 40,
+                "marginHorizontal": 5,
+                "marginLeft": 10,
+                "marginRight": 20,
+                "marginVertical": 5,
+              }
+            }
+          >
+            FRIDAY
+          </Text>
+          <View
+            style={
+              Object {
+                "borderBottomColor": "#3F3F3F",
+                "borderBottomWidth": 3,
+                "marginBottom": 5,
+                "marginLeft": 10,
+                "marginRight": 20,
+                "marginTop": 2,
+              }
+            }
+          />
+        </View>
+        <View
+          onLayout={[Function]}
+          style={null}
+        />
+        <View
+          onLayout={[Function]}
+          style={null}
+        >
+          <Text
+            style={
+              Object {
+                "backgroundColor": "#3F3F3F",
+                "color": "white",
+                "fontSize": 25,
+                "fontWeight": "bold",
+                "height": 40,
+                "marginHorizontal": 5,
+                "marginLeft": 10,
+                "marginRight": 20,
+                "marginVertical": 5,
+              }
+            }
+          >
+            SATURDAY
+          </Text>
+          <View
+            style={
+              Object {
+                "borderBottomColor": "#3F3F3F",
+                "borderBottomWidth": 3,
+                "marginBottom": 5,
+                "marginLeft": 10,
+                "marginRight": 20,
+                "marginTop": 2,
+              }
+            }
+          />
+        </View>
+        <View
+          onLayout={[Function]}
+          style={null}
+        />
+        <View
+          onLayout={[Function]}
+          style={null}
+        >
+          <Text
+            style={
+              Object {
+                "backgroundColor": "#3F3F3F",
+                "color": "white",
+                "fontSize": 25,
+                "fontWeight": "bold",
+                "height": 40,
+                "marginHorizontal": 5,
+                "marginLeft": 10,
+                "marginRight": 20,
+                "marginVertical": 5,
+              }
+            }
+          >
+            SUNDAY
+          </Text>
+          <View
+            style={
+              Object {
+                "borderBottomColor": "#3F3F3F",
+                "borderBottomWidth": 3,
+                "marginBottom": 5,
+                "marginLeft": 10,
+                "marginRight": 20,
+                "marginTop": 2,
+              }
+            }
+          />
+        </View>
+        <View
+          onLayout={[Function]}
+          style={null}
+        />
+      </View>
+    </RCTScrollView>
   </RCTSafeAreaView>
 </View>
 `;
