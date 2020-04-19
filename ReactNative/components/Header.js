@@ -6,7 +6,7 @@ import LinearGradient from 'react-native-linear-gradient';
 export default class Header extends Component {
   render() {
     return (
-      <LinearGradient start={{x: 0, y: 0}} end={{x: 1, y: 0}} colors={['#79B8F7', '#71C4F2', '#04AAD8', '#1974A8']} style={styles.container}>
+      <LinearGradient colors={['#34ccff', '#55dfd4', '#ebfa19']} style={styles.container}>
         <View >
           <Image source={require('../images/logo.png')} style={styles.logo} />
           <Text style={styles.header}>{this.props.title}</Text>
