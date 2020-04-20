@@ -1,43 +1,154 @@
 {
-  "players": [
-    {
-      "id_member": "2",
-      "events": [
-        {
-          "id": 5,
-          "day": "Friday",
-          "time": 12,
-          "tableNo": 0,
-          "short": "9000 Savage Worlds: Tango at East Texas University, GM: Laura Hamel
-            (Matinee Adventures), 6 players, No XP/Simple, Sunday 2p-6p. Midterms,
-            hunting vamps, and clubbing at Raven's Loft. Sneak a few beers and ask
-            the redhead to dance. What could go wrong? Adults Only (18+) $4.00",
-          "shorter": "9000 Savage Worlds: Tango at East Texas University,
-            GM: Laura Hamel (Matinee Adventures), 6 players, No XP/Simple,
-            Sunday 2p-6p. Adults Only (18+) $4.00",
-        },
-        {
-          "id": 6,
-          "day": "Friday",
-          "time": 12,
-          "tableNo": 7,
-          "short": "game1",
-          "shorter": "this is game1",
-        }
-      ]
-    },
-    {
-      "id_member": "151",
-      "events": [
-        {
-          "id": 5,
-          "day": "Friday",
-          "time": 12,
-          "tableNo": 7,
-          "short": "game1",
-          "shorter": "this is game1",
-        }
-      ]
-    }
-  ]
+    "players": [
+      {
+        "userId": "2",
+        "eventYear": "2020",
+        "attendeeSchedule": [
+          {
+            "title": "Empire Builder/Euorails",
+            "eventId": 5,
+            "game": "Secondary Name",
+            "day": "FRI",
+            "time": "14",
+            "length": "3",
+            "complex": "A",
+            "room": "51",
+            "table": "2",
+            "maxPlayers": "10",
+            "experience": "2",
+            "descLong": "This is the description that will go on the detail screen, it's actually fairly long and includes a lot of information.",
+            "gmName": "Jacob Bray (U-Con Gaming)"
+          },
+          {
+            "title": "Empire Builder/Euorails",
+            "eventId": 5,
+            "game": "Secondary Name",
+            "day": "FRI",
+            "time": "14",
+            "length": "3",
+            "complex": "A",
+            "room": "51",
+            "table": "2",
+            "maxPlayers": "10",
+            "experience": "2",
+            "descLong": "This is the description that will go on the detail screen, it's actually fairly long and includes a lot of information.",
+            "gmName": "Jacob Bray (U-Con Gaming)"
+          },
+          {
+            "title": "Empire Builder/Euorails",
+            "eventId": 5,
+            "game": "Secondary Name",
+            "day": "FRI",
+            "time": "14",
+            "length": "3",
+            "complex": "A",
+            "room": "51",
+            "table": "2",
+            "maxPlayers": "10",
+            "experience": "2",
+            "descLong": "This is the description that will go on the detail screen, it's actually fairly long and includes a lot of information.",
+            "gmName": "Jacob Bray (U-Con Gaming)"
+          },
+          {
+            "title": "Empire Builder/Euorails",
+            "eventId": 5,
+            "game": "Secondary Name",
+            "day": "FRI",
+            "time": "14",
+            "length": "3",
+            "complex": "A",
+            "room": "51",
+            "table": "2",
+            "maxPlayers": "10",
+            "experience": "2",
+            "descLong": "This is the description that will go on the detail screen, it's actually fairly long and includes a lot of information.",
+            "gmName": "Jacob Bray (U-Con Gaming)"
+          },
+          {
+            "title": "Empire Builder/Euorails",
+            "eventId": 5,
+            "game": "Secondary Name",
+            "day": "FRI",
+            "time": "14",
+            "length": "3",
+            "complex": "A",
+            "room": "51",
+            "table": "2",
+            "maxPlayers": "10",
+            "experience": "2",
+            "descLong": "This is the description that will go on the detail screen, it's actually fairly long and includes a lot of information.",
+            "gmName": "Jacob Bray (U-Con Gaming)"
+          },
+        ],
+        "gamemasterSchedule": []
+      },
+      {
+        "userId": "151",
+        "eventYear": "2020",
+        "attendeeSchedule": [
+          {
+            "title": "Empire Builder/Euorails",
+            "eventId": 5,
+            "game": "Secondary Name",
+            "day": "FRI",
+            "time": "14",
+            "length": "3",
+            "complex": "A",
+            "room": "51",
+            "table": "2",
+            "maxPlayers": "10",
+            "experience": "2",
+            "descLong": "This is the description that will go on the detail screen, it's actually fairly long and includes a lot of information.",
+            "gmName": "Jacob Bray (U-Con Gaming)"
+          },
+          {
+            "title": "Empire Builder/Euorails",
+            "eventId": 5,
+            "game": "Secondary Name",
+            "day": "FRI",
+            "time": "14",
+            "length": "3",
+            "complex": "A",
+            "room": "51",
+            "table": "2",
+            "maxPlayers": "10",
+            "experience": "2",
+            "descLong": "This is the description that will go on the detail screen, it's actually fairly long and includes a lot of information.",
+            "gmName": "Jacob Bray (U-Con Gaming)"
+          },
+          {
+            "title": "Empire Builder/Euorails",
+            "eventId": 5,
+            "game": "Secondary Name",
+            "day": "FRI",
+            "time": "14",
+            "length": "3",
+            "complex": "A",
+            "room": "51",
+            "table": "2",
+            "maxPlayers": "10",
+            "experience": "2",
+            "descLong": "This is the description that will go on the detail screen, it's actually fairly long and includes a lot of information.",
+            "gmName": "Jacob Bray (U-Con Gaming)"
+          },
+          {
+            "title": "Empire Builder/Euorails",
+            "eventId": 5,
+            "game": "Secondary Name",
+            "day": "FRI",
+            "time": "14",
+            "length": "3",
+            "complex": "A",
+            "room": "51",
+            "table": "2",
+            "maxPlayers": "10",
+            "experience": "2",
+            "descLong": "This is the description that will go on the detail screen, it's actually fairly long and includes a lot of information.",
+            "gmName": "Jacob Bray (U-Con Gaming)"
+          },
+        ],
+        "gamemasterSchedule": []
+      }
+    ]
+  }
 }
