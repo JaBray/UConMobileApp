@@ -1,18 +1,53 @@
-<!DOCTYPE html>
-
-<html lang="en">
+<!doctype html>
 <head>
-<title>API Call Test for UCON App</title>
-</head>
+
+<meta charset="UTF-8">
+
+<title>Ucon API test Page using JS</title>
+  </head>
+
 
 <body>
 
-<form action="uconAPITest.php" method="get">
-User ID: <input type="text" name="user_id">
-<input type="submit" value="Submit">
+<h2>API Responded with: </h2>
+<p id="response"></p>
+<input type="button" value="Send" onclick="getSchedule()">
 
-</form>
 
-</body>
+<script type="application/javascript">
+
+
+
+
+
+async function getSchedule(){
+var text = '{"players": [2,151,730]}';
+
+//var fetchBody = JSON.parse(text);
+
+console.log("raw text: "+text);
+//console.log("json body: "+fetchBody);
+
+
+fetch("postAPI.php", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'},
+        body: text
+      })
+  .then((response) => {
+    return response.json();
+  })
+  .then((data) => {
+    document.getElementById("response").innerHTML = JSON.stringify(data);
+  });
+
+}
+
+  </script>
+
+
+
+  </body>
 
 </html>
