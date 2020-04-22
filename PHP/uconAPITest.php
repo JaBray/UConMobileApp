@@ -21,12 +21,31 @@
 	//TODO Remove the minus one
 	$year = date("Y") - 1;
 
-	//If the user ID is supplied and is not empty, store the ID and displays the resulting schedule JSON from getUserEvents
-	if(isset($_GET['user_id']) && $_GET['user_id']!=""){
-		$userId = $_GET['user_id'];
-		echo getUserEvents($userId);
+  //If the API receives data through a POST request...
+  if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-	}
+  //get the raw data
+  $content = trim(file_get_contents("php://input"));
+
+  //Decode the JSON
+  $decoded = json_decode($content);
+  //Create an empty array to hold the user data
+  $scheduleObj = array();
+
+  //Loop through the user IDs and add each user object to the schedule
+  for($i = 0; $i < count($decoded->players); $i++){
+    array_push($scheduleObj, getUserEvents($decoded->players[$i]));
+  }
+
+  //Output the schedules
+  echo json_encode($scheduleObj);
+
+
+}
+
+
+
+
 
 
 	// Method takes one parameter, UserID, and returns a JSON object of the user and their schedules
@@ -79,7 +98,7 @@
 		$userObj->attendeeSchedule = $attendeeSchedule;
 		$userObj->gamemasterSchedule = $gamemasterSchedule;
 
-		return json_encode($userObj);
+		return $userObj;
 
 
 
