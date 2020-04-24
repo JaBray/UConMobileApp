@@ -85,13 +85,13 @@ async function parseSchedule(response) {
     const responseObject = mockSchedule();
     //responseObject = await response.json();
     for (const member of responseObject.players) {
-      const events_string = JSON.stringify(member.events);
-      await AsyncStorage.setItem(member.id_member, events_string);
+      const events_string = JSON.stringify(member.attendeeSchedule);
+      await AsyncStorage.setItem(member.userId, events_string);
     }
 
     return {
       error: false,
-      message: responseObject.players[0].id_member
+      message: responseObject.players[0].userId
     };
   } catch (error) {
     return getErrorMessage(`An error occurred while parsing member schedules. ${error}`);

@@ -19,13 +19,13 @@ export default class Event extends Component {
         <View style={styles.horizontalLineStyle}></View>
         <Text style={styles.gameSubjectStyle}>{this.props.title}</Text>
         <Text style={styles.gameDescriptiontStyle}>
-          GM: {this.props.s_fname} {this.props.s_lname}, {this.props.i_maxplayers}
-          {" "}seats, {this.props.e_exper} {this.props.e_complex}
-          {"\n"}{this.props.day} {this.props.time ? this.props.time.toLowerCase() : ''}-{this.props.e_time ? this.props.e_time.toLowerCase() : ''},
-          {" "}{this.props.s_room}
+          GM: {this.props.gmName}, {this.props.maxPlayers}
+          {" "}seats, {this.props.experience} {this.props.complex}
+          {"\n"}{this.props.day} {this.props.time ? this.props.time.toLowerCase() : ''}-{this.props.length ? this.props.length.toLowerCase() : ''},
+          {" "}{this.props.room}
         </Text>
         <LinearGradient colors={['#34ccff', '#55dfd4', '#ebfa19']} style={styles.linearGradient}>
-          <Text style={styles.timeStyle}>{this.props.e_time}</Text>
+          <Text style={styles.timeStyle}>{this.props.length}</Text>
         </LinearGradient>
         <View style={styles.horizontalLineStyle}></View>
       </View>

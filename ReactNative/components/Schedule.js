@@ -39,13 +39,12 @@ export default class Schedule extends Component {
                     title={item.title}
                     day={item.day}
                     time={item.time}
-                    e_time={item.e_time}
-                    s_fname={item.s_fname}
-                    s_lname={item.s_lname}
-                    i_maxplayers={item.i_maxplayers}
-                    e_exper={item.e_exper}
-                    e_complex={item.e_complex}
-                    s_room={item.s_room}
+                    length={item.length}
+                    gmName={item.gmName}
+                    maxPlayers={item.maxPlayers}
+                    experience={item.experience}
+                    complex={item.complex}
+                    room={item.room}
                   />}
               renderSectionHeader={({section}) =>
                 <>
@@ -77,14 +76,15 @@ export default class Schedule extends Component {
       let saturday = [];
       let sunday = [];
       for (const myEvent of eventsArray) {
+        console.log(myEvent);
         switch (myEvent.day) {
-          case 'Friday':
+          case 'FRI':
             friday.push(myEvent);
             break;
-          case 'Saturday':
+          case 'SAT':
             saturday.push(myEvent);
             break;
-          case 'Sunday':
+          case 'SUN':
             sunday.push(myEvent);
             break;
         }
