@@ -38,8 +38,8 @@ export default class Schedule extends Component {
                 <Event
                     title={item.title}
                     day={item.day}
-                    time={item.time}
-                    length={item.length}
+                    startTime={item.startTime}
+                    endTime={item.endTime}
                     gmName={item.gmName}
                     maxPlayers={item.maxPlayers}
                     experience={item.experience}
@@ -78,13 +78,13 @@ export default class Schedule extends Component {
       for (const myEvent of eventsArray) {
         console.log(myEvent);
         switch (myEvent.day) {
-          case 'FRI':
+          case 'Friday':
             friday.push(myEvent);
             break;
-          case 'SAT':
+          case 'Saturday':
             saturday.push(myEvent);
             break;
-          case 'SUN':
+          case 'Sunday':
             sunday.push(myEvent);
             break;
         }

@@ -85,6 +85,10 @@ async function parseSchedule(response) {
     const responseObject = mockSchedule();
     //responseObject = await response.json();
     for (const member of responseObject.players) {
+      for (let myEvent of member.attendeeSchedule) {
+        myEvent = transformEventObject(myEvent);
+      }
+      //console.log(member.attendeeSchedule);
       const events_string = JSON.stringify(member.attendeeSchedule);
       await AsyncStorage.setItem(member.userId, events_string);
     }
@@ -96,6 +100,62 @@ async function parseSchedule(response) {
   } catch (error) {
     return getErrorMessage(`An error occurred while parsing member schedules. ${error}`);
   }
+}
+
+function transformEventObject(myEvent) {
+  switch (myEvent.day) {
+    case 'FRI':
+      myEvent.day = 'Friday';
+      break;
+    case 'SAT':
+      myEvent.day = 'Saturday';
+      break;
+    case 'SUN':
+      myEvent.day = 'Sunday';
+      break;
+  }
+
+  const intTime = parseInt(myEvent.time);
+  const intLength = parseInt(myEvent.length);
+  if (intTime == NaN || intLength == NaN) {
+    myEvent.startTime = myEvent.time;
+    myEvent.endTime = '';
+  }
+  else {
+    myEvent.startTime = intTime > 12 ? (intTime - 12) + 'pm' : intTime + 'am';
+    const intEndTime = intTime + intLength;
+    const endTime = intEndTime > 12 ? (intEndTime - 12) + 'pm' : intEndTime + 'am';
+    myEvent.endTime = endTime;
+  }
+
+  myEvent.room = 'Room ' + myEvent.room;
+  myEvent.table = 'Table' + myEvent.table;
+
+  switch(myEvent.complex) {
+    case 'A':
+      myEvent.complex = 'Complexity: low';
+      break;
+    case 'B':
+      myEvent.complex = 'Complexity: medium';
+      break;
+    case 'C':
+      myEvent.complex = 'Complexity: high';
+      break;
+  }
+
+  switch(myEvent.experience) {
+    case '1':
+      myEvent.experience = 'Exp: low';
+      break;
+    case '2':
+      myEvent.experience = 'Exp: medium';
+      break;
+    case '3':
+      myEvent.exerience = 'Exp: high'
+      break;
+  }
+
+  return myEvent;
 }
 
 function getErrorMessage(message) {
