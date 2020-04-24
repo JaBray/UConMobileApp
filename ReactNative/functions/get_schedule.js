@@ -88,7 +88,6 @@ async function parseSchedule(response) {
       for (let myEvent of member.attendeeSchedule) {
         myEvent = transformEventObject(myEvent);
       }
-      //console.log(member.attendeeSchedule);
       const events_string = JSON.stringify(member.attendeeSchedule);
       await AsyncStorage.setItem(member.userId, events_string);
     }

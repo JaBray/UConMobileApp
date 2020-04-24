@@ -76,7 +76,6 @@ export default class Schedule extends Component {
       let saturday = [];
       let sunday = [];
       for (const myEvent of eventsArray) {
-        console.log(myEvent);
         switch (myEvent.day) {
           case 'Friday':
             friday.push(myEvent);
