@@ -16,7 +16,7 @@ export default class ContactInfo extends Component {
       <View style={styles.container}>
         <Header title="Contact Info"/>
         <Text style={styles.heading}>Contact by Postal Mail</Text>
-        <Text style={styles.text}>We have a new P.O. Box! Please label as ATN: Vendors Coordinator, ATN: Events Coordinator, or ATN: Volunteer Coordinator as appropriate.</Text>
+        <Text style={styles.text}>Please label as ATN: Vendors Coordinator, ATN: Events Coordinator, or ATN: Volunteer Coordinator as appropriate.</Text>
         <Text style={styles.text}>U-Con Gaming Club{"\n"}P.O. Box 130242{"\n"}Ann Arbor, MI 48131-0242</Text>
         <Text style={styles.heading}>Contact by Email</Text>
         <Text style={styles.text}>((email text boxes))</Text>

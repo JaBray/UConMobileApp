@@ -23,6 +23,7 @@ export default class ConductPolicy extends Component {
 
             <Text style={styles.heading}>Reporting Violations</Text>
             <Text style={styles.text}>Report any policy violations to a U-Con Volunteer or Staff member. While Volunteers and Staff can be found throughout the convention, there will always be Staff at Registration available to address policy violations. Volunteers and Staff members are required to promptly escalate reports of harassment, general misbehavior, or safety violations for resolution.</Text>
+            <Text style={styles.text}>You can also report any violations through the Report Conduct Violation page of the U-Con App.</Text>
 
             <Text style={styles.heading}>Harassment</Text>
             <Text style={styles.text}>Do not harass anyone at U-Con, whether they are part of the con or present at the venue for other reasons, in any way. Harassment includes (but is not limited to) offensive verbal comments related to characteristics including gender, gender identity, gender expression, sexual orientation, disability, physical appearance, body size, race, veteran status, or religion; deliberate intimidation; stalking or following; harassing photography or recording; sustained disruption of events; inappropriate physical contact; and/or unwelcome sexual attention. Participants asked to stop any harassing behavior are expected to comply immediately. Even if you do not believe that your behavior is harassment, if the recipient does, you need to stop.</Text>

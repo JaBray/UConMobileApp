@@ -68,6 +68,7 @@ export default class App extends Component {
           }
           <Drawer.Screen name="Conduct Policy" component={ConductPolicy} />
           <Drawer.Screen name="Contact Info" component={ContactInfo} />
+          <Drawer.Screen name="Report Conduct Violation" component={ReportConductViolation} />
         </Drawer.Navigator>
       </NavigationContainer>
     );

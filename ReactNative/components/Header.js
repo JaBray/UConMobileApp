@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
-// THE IMAGE THAT IS DISPLAED BY ALL PAGE COMPONENTS
+// THE IMAGE THAT IS DISPLAYED BY ALL PAGE COMPONENTS
 export default class Header extends Component {
   render() {
     return (

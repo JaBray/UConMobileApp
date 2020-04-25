@@ -23,7 +23,6 @@ export function AuthenticatedDrawerContent({progress, ...rest}) {
         <DrawerItem label="Look Up Events" labelStyle={rest.labelStyle} onPress={() => alert('Not implemented') } />
         <DrawerItem label="Con Schedule" labelStyle={rest.labelStyle} onPress={() => alert('Not implemented') } />
         <DrawerItem label="My Information" labelStyle={rest.labelStyle} onPress={() => alert('Not implemented') } />
-        <DrawerItem label="Report Conduct Violations" labelStyle={rest.labelStyle} onPress={() => alert('Not implemented') } />
         <DrawerItem label="Sign Out" labelStyle={rest.labelStyle} onPress={rest.logout} />
       </Animated.View>
     </DrawerContentScrollView>
