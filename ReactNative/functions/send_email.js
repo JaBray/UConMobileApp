@@ -1,10 +1,7 @@
-// send-email.js
-
-// We can use react-native Linking to send email
 import qs from 'qs';
 import { Linking } from 'react-native';
 
-
+// USES REACT NATIVE Linking TO OPEN AN EMAIL CLIENT TO SEND AN EMAIL
 export async function sendEmail(to, subject, body, options = {}) {
     const { cc, bcc } = options;
 
@@ -22,7 +19,7 @@ export async function sendEmail(to, subject, body, options = {}) {
         url += `?${query}`;
     }
 
-    // check if we can use this link
+    // Check if we can use this link
     const canOpen = await Linking.canOpenURL(url);
 
     if (!canOpen) {
@@ -31,5 +28,4 @@ export async function sendEmail(to, subject, body, options = {}) {
 
     return Linking.openURL(url);
 }
-
 

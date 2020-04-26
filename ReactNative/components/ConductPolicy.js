@@ -9,7 +9,6 @@ export default class ConductPolicy extends Component {
     super(props);
   }
 
-// TODO: add note about reporting violations through the app
   render() {
     return (
       <View style={styles.container}>

@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, ScrollView, StyleSheet } from 'react-native';
 
 // CUSTOM FUNCTIONS
 import { sendEmail } from '../functions/send_email.js';
+const EmailTo = 'ahawki18@emich.edu';
+const EmailSubject = 'Conduct Violation Report';
 
 // CUSTOM COMPONENTS
+import MyTextBox from './MyTextBox';
+import MyLargeTextBox from './MyLargeTextBox';
 import MyLargeButton from './MyLargeButton';
 import Header from './Header';
 
@@ -12,37 +16,50 @@ import Header from './Header';
 export default class ReportConductViolation extends Component {
   constructor(props) {
     super(props);
+
+    this.state = { name: '', phone: '', details: '' };
   }
 
   render() {
     return (
       <View style={styles.container}>
-        <Header title="Report Conduct Violation"/>
-        <Text style={styles.text}>words go here</Text>
-        <MyLargeButton title="Send hard coded email" press={this._submitEmail}/>
+        <ScrollView>
+            <Header title="Report Conduct Violation"/>
+            <Text style={styles.text}>Please fill the following fields to report a conduct violation.</Text>
+            <Text style={styles.text}>Name:</Text>
+            <MyTextBox placeholder='Name' text={this.state.name} onchange={this._setName} />
+            <Text style={styles.text}>Phone Number:</Text>
+            <MyTextBox placeholder='Phone Number' text={this.state.phone} onchange={this._setPhone} />
+            <Text style={styles.text}>Details of conduct violation, including names, times, location:</Text>
+            <MyLargeTextBox placeholder='Details of conduct violation, including names, times, location' text={this.state.details} onchange={this._setDetails} />
+            <MyLargeButton title="Submit Report Via Email" press={() => this._submitEmail(this.state.details, this.state.name, this.state.phone)}/>
+        </ScrollView>
       </View>
     );
   }
 
-  //This method opens the phone's (default?) mail app to send an email....
-  //  Concerns: 1. Am I allowed to copy and paste code from the internet like this?
-  //            2. I can't fully test it on the emulator -- the button works, but I can't login to Gmail app.
-  //            3. Is it okay with our customer to have it open a separate app?
-  //             ..It probably shows the To: email address. Is this okay? (ContactInfo doesn't show it)
-  //            4. Does it work if they don't use the default mail app? (I use Gmail instead of Mail on iOS)
-  //  ...can we take out the Linking part to send email directly...?
-  // example.js
-  _submitEmail() {
-      sendEmail(
-          'ahawki18@emich.edu',
-          'This is the subject',
-          'this is the message hi hello',
-          { cc: 'allison.c.hawk@gmail.com' }
-      ).then(() => {
-          console.log('Your message was successfully sent!');
-      });
+  _setName = (inputText) => {
+      this.setState({name: inputText});
+  }
+  _setPhone = (inputText) => {
+      this.setState({phone: inputText});
+  }
+  _setDetails = (inputText) => {
+      this.setState({details: inputText});
   }
 
+  // OPEN A MAIL CLIENT TO PREFILL AN EMAIL WITH THESE CONTENTS
+  _submitEmail = (details, name, phone) => {
+      let emailMessage = details + '\n\n' + name + '\n' + phone;
+
+      sendEmail(
+          EmailTo,
+          EmailSubject,
+          emailMessage
+      ).then(() => {
+          console.log(emailMessage);
+      });
+  }
 
 }
 
