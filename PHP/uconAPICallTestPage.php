@@ -29,7 +29,7 @@ console.log("raw text: "+text);
 //console.log("json body: "+fetchBody);
 
 
-fetch("postAPI.php", {
+fetch("uconAPI.php", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'},
