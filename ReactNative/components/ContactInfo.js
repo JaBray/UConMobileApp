@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 
 // CUSTOM FUNCTIONS
 import { sendEmail } from '../functions/send_email.js';
-const EmailTo = 'ahawki18@emich.edu';
+const EmailTo = 'contact@ucon-gaming.org';
 const EmailSubject = '';
 
 import Header from './Header';
